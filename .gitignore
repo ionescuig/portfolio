@@ -4,7 +4,9 @@ local.*
 
 db.sqlite3
 
+uenv/
 venv/
+wenv/
 staticfiles/
 __pycache__/
 .idea/

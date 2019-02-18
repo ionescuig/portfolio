@@ -1,6 +1,6 @@
 # portfolio
 ### personal portfolio website
 
-- _**work in progress...**_
+- ***work in progress...***
 
 - project empty for now
