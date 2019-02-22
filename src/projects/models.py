@@ -1,13 +1,17 @@
+
+from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
+import os
 
 
 class Project(models.Model):
+    user        = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=None)
     title       = models.CharField(max_length=50)
     slug        = models.SlugField()
-    description = models.CharField(max_length=2500)
+    description = models.TextField(max_length=2500)
     position    = models.IntegerField(unique=True)
-    link_hot    = models.URLField(blank=True)
+    link_host    = models.URLField(blank=True)
     link_github = models.URLField(blank=True)
 
     def save(self, *args, **kwargs):
@@ -31,6 +35,15 @@ def get_image_filename(instance, filename):
 class Images(models.Model):
     project = models.ForeignKey(Project, default=None, on_delete=models.DO_NOTHING)
     image   = models.ImageField(upload_to=get_image_filename, verbose_name='Image')
+
+
+    class Meta:
+        verbose_name_plural = "Images"
+
+    def __str__(self):
+        return self.project.title + ' --- ' + os.path.basename(self.image.name)
+        # to see the filename (path) can be used:
+        # return str(self.image)
 
 
 class CV(models.Model):
