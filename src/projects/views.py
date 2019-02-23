@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView
+from django.views.generic import CreateView, TemplateView
 from django.shortcuts import render
 
 from .forms import CVForm, ImagesForm, ProjectForm
@@ -14,9 +14,15 @@ class LandingView(TemplateView):
     template_name = 'projects/underconstruction.html'
 
 
+# class ProjectCreateView(LoginRequiredMixin, CreateView):
+#     template_name = 'projects/create_project.html'
+#     form_class = ProjectForm
+#     success_url = '/'
+
+
 @login_required
 def createproject(request):
-    ImageFormSet = modelformset_factory(Images, form=ImagesForm, extra=5)
+    ImageFormSet = modelformset_factory(Images, form=ImagesForm, extra=6)
     # 'extra' means the number of photos that you can upload     ^
 
     if request.method == 'POST':
@@ -41,4 +47,4 @@ def createproject(request):
     else:
         projectForm = ProjectForm()
         formset = ImageFormSet(queryset=Images.objects.none())
-    return render(request, 'projects/index.html', {'projectForm': projectForm, 'formset': formset})
+    return render(request, 'projects/create_project.html', {'projectForm': projectForm, 'formset': formset})

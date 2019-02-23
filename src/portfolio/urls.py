@@ -20,5 +20,5 @@ from projects.views import LandingView, createproject
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingView.as_view(), name='home'),
-    path('index', createproject, name='index'),
+    path('create-project', createproject, name='create_project'),
 ]
