@@ -14,24 +14,26 @@ class LandingView(TemplateView):
     template_name = 'projects/underconstruction.html'
 
 
-# class ProjectCreateView(LoginRequiredMixin, CreateView):
-#     template_name = 'projects/create_project.html'
-#     form_class = ProjectForm
-#     success_url = '/'
-
-
 @login_required
 def createproject(request):
-    ImageFormSet = modelformset_factory(Images, form=ImagesForm, extra=6)
+    image_form_set = modelformset_factory(Images, form=ImagesForm, extra=6)
     # 'extra' means the number of photos that you can upload     ^
 
     if request.method == 'POST':
+        # create new project
         projectForm = ProjectForm(request.POST)
-        formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
+        formset = image_form_set(request.POST, request.FILES, queryset=Images.objects.none())
 
         if projectForm.is_valid() and formset.is_valid():
             project_form = projectForm.save(commit=False)
             project_form.user = request.user
+            # # find max position for the new project
+            # query_projects = Project.objects.all()
+            # if query_projects:
+            #     positions = query_projects.count()
+            # else:
+            #     positions = 0
+            # project_form.position = positions + 1
             project_form.save()
 
             for form in formset.cleaned_data:
@@ -46,5 +48,5 @@ def createproject(request):
             print(projectForm.errors, formset.errors)
     else:
         projectForm = ProjectForm()
-        formset = ImageFormSet(queryset=Images.objects.none())
+        formset = image_form_set(queryset=Images.objects.none())
     return render(request, 'projects/create_project.html', {'projectForm': projectForm, 'formset': formset})

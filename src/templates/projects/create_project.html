@@ -11,7 +11,11 @@
     {% endfor %}
 
     {% for field in projectForm %}
-        {{ field.label }}: {{ field }} <br>
+        {{ field.label }}: {{ field }}
+        {% if field.errors %}
+            {{ field.errors|escape }}<br>
+        {% endif %}
+        <br>
     {% endfor %}
     <br>
     {{ formset.management_form }}

@@ -1,17 +1,18 @@
-
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models.signals import pre_save, post_save
 from django.template.defaultfilters import slugify
 import os
 
 
 class Project(models.Model):
     user        = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=None)
-    title       = models.CharField(max_length=50)
+    title       = models.CharField(max_length=50, unique=True)
     slug        = models.SlugField()
     description = models.TextField(max_length=2500)
-    position    = models.IntegerField(unique=True)
-    link_host    = models.URLField(blank=True)
+    position    = models.PositiveIntegerField(unique=True, validators=[MinValueValidator(1), MaxValueValidator(1000)])
+    link_host   = models.URLField(blank=True)
     link_github = models.URLField(blank=True)
 
     def save(self, *args, **kwargs):
@@ -51,3 +52,15 @@ class CV(models.Model):
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
     visible         = models.BooleanField(default=False)
+
+
+# next function does nothing. just for testing purposes.
+#
+# def project_pre_save_receiver(sender, instance, *args, **kwargs):
+#     print('>>> ', instance.position)
+#     print('>>> ', instance.title)
+#     print('>>> ', instance.link_host)
+#     print('>>> ', instance.link_github)
+#
+#
+# pre_save.connect(project_pre_save_receiver, sender=Project)
