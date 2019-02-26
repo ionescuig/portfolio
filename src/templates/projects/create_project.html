@@ -13,7 +13,9 @@
     {% for field in projectForm %}
         {{ field.label }}: {{ field }}
         {% if field.errors %}
-            {{ field.errors|escape }}<br>
+            <div class="text-muted">
+                <small style="color:red">{{ field.errors|escape }}<br></small>
+            </div>
         {% endif %}
         <br>
     {% endfor %}

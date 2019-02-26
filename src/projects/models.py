@@ -43,8 +43,6 @@ class Images(models.Model):
 
     def __str__(self):
         return self.project.title + ' --- ' + os.path.basename(self.image.name)
-        # to see the filename (path) can be used:
-        # return str(self.image)
 
 
 class CV(models.Model):

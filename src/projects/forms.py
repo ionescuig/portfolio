@@ -1,8 +1,4 @@
-import warnings
 from django import forms
-from django.contrib import messages
-from django.core.exceptions import FieldError
-from django.core.validators import MinValueValidator, MaxValueValidator
 from.models import Project, Images, CV
 
 

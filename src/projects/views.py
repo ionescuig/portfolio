@@ -27,13 +27,6 @@ def createproject(request):
         if projectForm.is_valid() and formset.is_valid():
             project_form = projectForm.save(commit=False)
             project_form.user = request.user
-            # # find max position for the new project
-            # query_projects = Project.objects.all()
-            # if query_projects:
-            #     positions = query_projects.count()
-            # else:
-            #     positions = 0
-            # project_form.position = positions + 1
             project_form.save()
 
             for form in formset.cleaned_data:
