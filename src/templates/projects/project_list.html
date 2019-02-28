@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+    {% for obj in object_list %}
+        <strong>
+            <a style="color: #279bbe" href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
+        </strong>
+        <p>
+            Position: {{ obj.position }}
+        </p>
+        <p>
+            Description: {{ obj.description }}
+        </p>
+    {% endfor %}
+
+
+{% endblock %}

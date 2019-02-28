@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Project{% endblock %}
+
+{% block content %}
+    <form>
+        {% csrf_token %}
+        <ul class="list-unstyled">
+            <li><strong>Title: {{ object.title }}</strong></li>
+            <li>Description: {{ object.description }}</li>
+            <li>
+                <div class="row">
+                    {% for imag in object.images_set.all %}
+                        <span class="col-sm-4">
+                            <img src="{{ imag.image.url }}" alt="{{ imag.image.url }}">
+                        </span>
+                    {% endfor %}
+
+
+
+                </div>
+            </li>
+        </ul>
+    </form>
+    {% if user.is_authenticated %}
+        <a href="{% url 'projects:update' object.slug %}">Update project</a>
+    {% endif %}
+{% endblock %}

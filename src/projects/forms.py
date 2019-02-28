@@ -29,7 +29,6 @@ class ProjectForm(forms.ModelForm):
         # update the position field with the new list
         super(ProjectForm, self).__init__(*args, **kwargs)
         self.fields['position'] = forms.ChoiceField(choices=choices, required=True)
-        self.fields['position'].help_text = ('(Project number: %s)' % (total_projects + 1))
         self.initial['position'] = total_projects + 1
 
 

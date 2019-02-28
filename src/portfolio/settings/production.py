@@ -129,9 +129,8 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR,]
 
-MEDIA_ROOT = 'media'
+MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
-MEDIA_DIRS = [MEDIA_DIR,]
 
 # gmail settings
 EMAIL_HOST = 'smtp.gmail.com'

@@ -3,14 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, DetailView, ListView
 from django.shortcuts import render
 
 from .forms import CVForm, ImagesForm, ProjectForm
 from .models import CV, Images, Project
 
 
-class LandingView(TemplateView):
+class HomeView(TemplateView):
     template_name = 'projects/underconstruction.html'
 
 
@@ -27,6 +27,15 @@ def createproject(request):
         if projectForm.is_valid() and formset.is_valid():
             project_form = projectForm.save(commit=False)
             project_form.user = request.user
+
+            # update positions for projects starting with the new project's desired position
+            position = project_form.position
+            total_positions = Project.objects.all().count()
+            if position <= total_positions:
+                projects_for_update = Project.objects.filter(position__gte=position)
+                for proj in projects_for_update:
+                    proj.update_position(1)
+
             project_form.save()
 
             for form in formset.cleaned_data:
@@ -43,3 +52,32 @@ def createproject(request):
         projectForm = ProjectForm()
         formset = image_form_set(queryset=Images.objects.none())
     return render(request, 'projects/create_project.html', {'projectForm': projectForm, 'formset': formset})
+
+
+class DetailProjectView(DetailView):
+    form_class = ProjectForm
+    template_name = 'projects/detail_project.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DetailProjectView, self).get_context_data(*args, **kwargs)
+        return context
+
+    def get_queryset(self):
+        return Project.objects.all()
+
+
+class UpdateProjectView(LoginRequiredMixin, UpdateView):
+    form_class = ProjectForm
+    template_name = 'projects/update_project.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateProjectView, self).get_context_data(*args, **kwargs)
+        return context
+
+    def get_queryset(self):
+        return Project.objects.all()
+
+
+class ListProjectView(ListView):
+    def get_queryset(self):
+        return Project.objects.all().order_by('position')
