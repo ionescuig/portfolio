@@ -15,8 +15,6 @@ Including another URLconf
 """
 
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 from .views import createproject, DetailProjectView, UpdateProjectView, ListProjectView
 
 urlpatterns = [
@@ -24,4 +22,4 @@ urlpatterns = [
     path('detail/<slug:slug>/', DetailProjectView.as_view(), name='detail'),
     path('update/<slug:slug>/', UpdateProjectView.as_view(), name='update'),
     path('create/', createproject, name='create'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
