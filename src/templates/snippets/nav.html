@@ -22,5 +22,18 @@
                 <a class="nav-link" href="#">___</a>
             </li>
         </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <div class="nav-link">
+                        {% if user.is_authenticated %}
+                            User: <strong><em>{{ request.user.username }}</em></strong>
+                        {% else %}
+                            No user
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
