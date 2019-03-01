@@ -2,9 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
-from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, DetailView, ListView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .forms import CVForm, ImagesForm, ProjectForm
 from .models import CV, Images, Project
@@ -45,7 +44,7 @@ def createproject(request):
                     photo = Images(project=project_form, image=image)
                     photo.save()
             messages.success(request, 'Project saved!!!')
-            return HttpResponseRedirect('/')
+            return redirect('projects:list')
         else:
             print(projectForm.errors, formset.errors)
     else:
