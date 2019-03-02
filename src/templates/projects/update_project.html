@@ -3,11 +3,31 @@
 {% block title %}Update Project{% endblock %}
 
 {% block content %}
+    <br>
     {% if user.is_authenticated %}
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" name="submit" value="Update" />
+
+            {% for imag in form.images_set.all %}
+                <span class="col-sm-2">
+                    <img src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
+                </span>
+            {% endfor %}
+
+            <input class="btn btn-success btn-sm" type="submit" name="submit" value="Update" />
+            <a class="btn btn-danger btn-sm" href="{% url 'projects:detail' slug=object.slug %}">Cancel</a>
         </form>
+        <hr>
+        <a class="btn btn-warning btn-sm" href="#">Update images</a>
+        <br><br>
+        <div class="row">
+            {% for imag in object.images_set.all %}
+                <span class="col-sm-2">
+                    <img src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
+                </span>
+            {% endfor %}
+        </div>
+
     {% endif %}
 {% endblock %}

@@ -1,19 +1,38 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
 
 {% block title %}Projects{% endblock %}
 
 {% block content %}
+    <br>
     {% for obj in object_list %}
-        <strong>
-            <a style="color: #279bbe" href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
-        </strong>
-        <p class="text-muted">
-            <small>Pos: {{ obj.position }}</small>
-        </p>
-        <p>
-            Description: {{ obj.description }}
-        </p>
-    {% endfor %}
+        <div class="row">
+            <div class="col-sm-4">
+                <strong>
+                    <a style="color: #279bbe" href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
+                </strong>
+                <p class="text-muted">
+                    <small>Position: {{ obj.position }}</small>
+                </p>
+                <p>
+                    Description: {{ obj.description }}
+                </p>
+            </div>
 
+            <div class="col-sm-8">
+                <div class="row">
+                    {% for imag in obj.images_set.all %}
+                        <span class="col-sm-2">
+                            <img src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+    {% endfor %}
 
 {% endblock %}
