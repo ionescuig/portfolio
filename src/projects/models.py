@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save, post_save, post_delete, pre_delete
+from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 import os
@@ -26,7 +27,7 @@ class Project(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('projects:detail', kwargs={'slug': self.slug})
+        return reverse('projects:project_detail', kwargs={'slug': self.slug})
 
     def update_position(self, value):
         self.position += value
@@ -44,8 +45,11 @@ class Images(models.Model):
     class Meta:
         verbose_name_plural = "Images"
 
+    def get_absolute_url(self):
+        return reverse('projects:image_update', kwargs={'pk': self.pk})
+
     def __str__(self):
-        return self.project.title + ' --- ' + os.path.basename(self.image.name)
+        return self.project.title + ' --- ' + self.image.name
 
 
 class CV(models.Model):
@@ -53,6 +57,34 @@ class CV(models.Model):
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
     visible         = models.BooleanField(default=False)
+
+
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem when corresponding `Images` object is deleted.
+    """
+    if instance.image:
+        path, file = os.path.split(instance.image.path)
+        # delete file
+        if os.path.isfile(instance.image.path):
+            os.remove(instance.image.path)
+        # delete folder only if empty
+        if path:
+            if not os.listdir(path):
+                os.rmdir(path)
+
+
+def auto_delete_images_on_project_delete(sender, instance, **kwargs):
+    if instance.title:
+        images = Images.objects.filter(project__slug__iexact=instance.slug)
+        if images:
+            for imag in images:
+                if imag:
+                    imag.delete()
+
+
+post_delete.connect(auto_delete_file_on_delete, sender=Images)
+pre_delete.connect(auto_delete_images_on_project_delete, sender=Project)
 
 
 # next function does nothing. just for testing purposes.

@@ -3,8 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, DetailView, ListView
-from django.views.generic.edit import FormMixin
+from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, DetailView, ListView, View
 from django.shortcuts import render
 
 from .forms import CVForm, ImagesForm, ProjectForm
@@ -46,18 +45,18 @@ def createproject(request):
                     photo = Images(project=project_form, image=image)
                     photo.save()
             messages.success(request, 'Project saved!!!')
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/projects/')
         else:
             print(projectForm.errors, formset.errors)
     else:
         projectForm = ProjectForm()
         formset = image_form_set(queryset=Images.objects.none())
-    return render(request, 'projects/create_project.html', {'projectForm': projectForm, 'formset': formset})
+    return render(request, 'projects/project_create.html', {'projectForm': projectForm, 'formset': formset})
 
 
 class DetailProjectView(DetailView):
     form_class = ProjectForm
-    template_name = 'projects/detail_project.html'
+    template_name = 'projects/project_detail.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(DetailProjectView, self).get_context_data(*args, **kwargs)
@@ -69,10 +68,14 @@ class DetailProjectView(DetailView):
 
 class UpdateProjectView(LoginRequiredMixin, UpdateView):
     form_class = ProjectForm
-    template_name = 'projects/update_project.html'
+    form_class2 = ImagesForm
+    template_name = 'projects/project_update.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateProjectView, self).get_context_data(*args, **kwargs)
+        # print('>>> get_context_data: self.kwargs >>>', self.kwargs)
+        # print('>>> get_context_data: context >>>', context)
+        # print('>>> get_context_data: test >>>', self.object.images_set.all)
         return context
 
     def get_queryset(self):

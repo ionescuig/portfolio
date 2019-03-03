@@ -18,8 +18,8 @@ from django.urls import path
 from .views import createproject, DetailProjectView, UpdateProjectView, ListProjectView
 
 urlpatterns = [
-    path('', ListProjectView.as_view(), name='list'),
-    path('detail/<slug:slug>/', DetailProjectView.as_view(), name='detail'),
-    path('update/<slug:slug>/', UpdateProjectView.as_view(), name='update'),
-    path('create/', createproject, name='create'),
+    path('', ListProjectView.as_view(), name='project_list'),
+    path('detail-project/<slug:slug>', DetailProjectView.as_view(), name='project_detail'),
+    path('update-project/<slug:slug>', UpdateProjectView.as_view(), name='project_update'),
+    path('create-project/', createproject, name='project_create'),
 ]
