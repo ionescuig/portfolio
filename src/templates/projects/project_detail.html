@@ -14,7 +14,10 @@
                     {% for imag in object.images_set.all %}
                         <span class="col-sm-4">
                             <img src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
-                        </span>
+                                <div class="text-center">
+                                    <a class="btn btn-danger btn-sm" href="{{ imag.get_absolute_url }}">Delete image</a>
+                                </div>
+                            </span>
                     {% endfor %}
                 </div>
             </li>

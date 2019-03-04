@@ -46,7 +46,7 @@ class Images(models.Model):
         verbose_name_plural = "Images"
 
     def get_absolute_url(self):
-        return reverse('projects:image_update', kwargs={'pk': self.pk})
+        return reverse('projects:image_delete', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.project.title + ' --- ' + self.image.name

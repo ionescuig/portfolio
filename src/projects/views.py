@@ -96,3 +96,22 @@ class DeleteProjectView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return Project.objects.all()
+
+
+class DeleteImageView(LoginRequiredMixin, DeleteView):
+    template_name = 'projects/image_delete.html'
+    success_url = reverse_lazy('projects:project_list')
+    # success_url = reverse_lazy('projects:project_detail', kwargs={'slug': slug})
+
+    def get_object(self, queryset=None):
+        obj = super(DeleteImageView, self).get_object()
+        print('>>> path: ', obj.image.path)
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(DeleteImageView, self).get_context_data()
+        print(context)
+        return context
+
+    def get_queryset(self):
+        return Images.objects.all()
