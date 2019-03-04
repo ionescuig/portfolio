@@ -2,9 +2,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, DetailView, ListView, View
 from django.shortcuts import render
+from django.urls import reverse_lazy
 
 from .forms import CVForm, ImagesForm, ProjectForm
 from .models import CV, Images, Project
@@ -68,14 +69,10 @@ class DetailProjectView(DetailView):
 
 class UpdateProjectView(LoginRequiredMixin, UpdateView):
     form_class = ProjectForm
-    form_class2 = ImagesForm
     template_name = 'projects/project_update.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateProjectView, self).get_context_data(*args, **kwargs)
-        # print('>>> get_context_data: self.kwargs >>>', self.kwargs)
-        # print('>>> get_context_data: context >>>', context)
-        # print('>>> get_context_data: test >>>', self.object.images_set.all)
         return context
 
     def get_queryset(self):
@@ -85,3 +82,17 @@ class UpdateProjectView(LoginRequiredMixin, UpdateView):
 class ListProjectView(ListView):
     def get_queryset(self):
         return Project.objects.all().order_by('position')
+
+
+class DeleteProjectView(LoginRequiredMixin, DeleteView):
+    template_name = 'projects/project_delete.html'
+    success_url = reverse_lazy('projects:project_list')
+
+    def get_object(self, queryset=None):
+        obj = super(DeleteProjectView, self).get_object()
+        if not obj.user == self.request.user:
+            raise Http404
+        return obj
+
+    def get_queryset(self):
+        return Project.objects.all()

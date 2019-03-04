@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+    <br>
+    {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            <br>Title: {{ object.title }}
+            <br>Description: {{ object.description }}
+            <br><br>
+            <spam>
+                Are you sure you want to delete <strong>{{ object.title }}</strong>?
+                <input class="btn btn-danger" type="submit" value="Yes, I am sure">
+                <a class="btn btn-warning" href="{{ object.get_absolute_url }}">Cancel</a>
+            </spam>
+        </form>
+    {% endif %}
+
+{% endblock %}

@@ -21,7 +21,8 @@
         </ul>
     </form>
     {% if user.is_authenticated %}
-        <a class="btn btn-danger" href="{% url 'projects:project_update' object.slug %}">Update project</a>
+        <a class="btn btn-warning" href="{% url 'projects:project_update' object.slug %}">Update project</a>
+        <a class="btn btn-danger" href="{% url 'projects:project_delete' object.slug %}">Delete project</a>
         <hr>
     {% endif %}
     <a class="btn btn-info" href="{% url 'projects:project_list' %}">Back</a>
