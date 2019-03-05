@@ -59,8 +59,8 @@ class DetailProjectView(DetailView):
     form_class = ProjectForm
     template_name = 'projects/project_detail.html'
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(DetailProjectView, self).get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(DetailProjectView, self).get_context_data(**kwargs)
         return context
 
     def get_queryset(self):
@@ -71,12 +71,32 @@ class UpdateProjectView(LoginRequiredMixin, UpdateView):
     form_class = ProjectForm
     template_name = 'projects/project_update.html'
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(UpdateProjectView, self).get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(UpdateProjectView, self).get_context_data(**kwargs)
         return context
 
     def get_queryset(self):
         return Project.objects.all()
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        project = Project.objects.filter(slug__iexact=obj.slug)[0]
+        if obj.position < project.position:
+            projects_update = Project.objects.order_by('position').\
+                filter(position__gte=obj.position, position__lt=project.position)
+            position_update = 1
+        elif obj.position > project.position:
+            projects_update = Project.objects.order_by('position'). \
+                filter(position__gt=project.position, position__lte=obj.position)
+            position_update = -1
+        else:
+            projects_update = 0
+            position_update = 0
+        if projects_update:
+            for proj in projects_update:
+                proj.update_position(position_update)
+
+        return super(UpdateProjectView, self).form_valid(form)
 
 
 class ListProjectView(ListView):

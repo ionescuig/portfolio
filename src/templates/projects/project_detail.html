@@ -14,9 +14,11 @@
                     {% for imag in object.images_set.all %}
                         <span class="col-sm-4">
                             <img src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
-                                <div class="text-center">
-                                    <a class="btn btn-danger btn-sm" href="{{ imag.get_absolute_url }}">Delete image</a>
-                                </div>
+                                {% if user.is_authenticated %}
+                                    <div class="text-center">
+                                        <a class="btn btn-danger btn-sm" href="{{ imag.get_absolute_url }}">Delete image</a>
+                                    </div>
+                                {% endif %}
                             </span>
                     {% endfor %}
                 </div>
@@ -24,9 +26,9 @@
         </ul>
     </form>
     {% if user.is_authenticated %}
-        <a class="btn btn-warning" href="{% url 'projects:project_update' object.slug %}">Update project</a>
+        <a class="btn btn-success" href="{% url 'projects:project_update' object.slug %}">Update project</a>
         <a class="btn btn-danger" href="{% url 'projects:project_delete' object.slug %}">Delete project</a>
         <hr>
     {% endif %}
-    <a class="btn btn-info" href="{% url 'projects:project_list' %}">Back</a>
+    <a class="btn btn-secondary" href="{% url 'projects:project_list' %}">Back</a>
 {% endblock %}

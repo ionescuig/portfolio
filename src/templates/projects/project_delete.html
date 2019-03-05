@@ -10,6 +10,11 @@
             {% csrf_token %}
             <br>Title: {{ object.title }}
             <br>Description: {{ object.description }}
+            <br>
+            {% for imag in object.images_set.all %}
+                <img src="{{ imag.image.url }}" width='20%' alt="{{ imag.image.url }}">
+            {% endfor %}
+
             <br><br>
             <spam>
                 Are you sure you want to delete <strong>{{ object.title }}</strong>?
