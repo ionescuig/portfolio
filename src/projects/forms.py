@@ -1,5 +1,6 @@
 from django import forms
-from.models import Project, Images, CV
+
+from .models import Project, Images, CV
 
 
 class ProjectForm(forms.ModelForm):

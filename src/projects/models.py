@@ -83,8 +83,18 @@ def auto_delete_images_on_project_delete(sender, instance, **kwargs):
                     imag.delete()
 
 
+def post_delete_project(sender, instance, **kwargs):
+    if instance.position:
+        position = instance.position
+        projects = Project.objects.order_by('position').filter(position__gt=position)
+        for proj in projects:
+            proj.update_position(-1)
+
+
 post_delete.connect(auto_delete_file_on_delete, sender=Images)
 pre_delete.connect(auto_delete_images_on_project_delete, sender=Project)
+post_delete.connect(post_delete_project, sender=Project)
+
 
 
 # next function does nothing. just for testing purposes.

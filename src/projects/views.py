@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.forms import modelformset_factory
+from django.db import transaction
+from django.forms import modelformset_factory, inlineformset_factory
 from django.http import HttpResponseRedirect, Http404
 from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, DetailView, ListView, View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from .forms import CVForm, ImagesForm, ProjectForm
@@ -95,7 +96,6 @@ class UpdateProjectView(LoginRequiredMixin, UpdateView):
         if projects_update:
             for proj in projects_update:
                 proj.update_position(position_update)
-
         return super(UpdateProjectView, self).form_valid(form)
 
 
@@ -120,18 +120,19 @@ class DeleteProjectView(LoginRequiredMixin, DeleteView):
 
 class DeleteImageView(LoginRequiredMixin, DeleteView):
     template_name = 'projects/image_delete.html'
-    success_url = reverse_lazy('projects:project_list')
-    # success_url = reverse_lazy('projects:project_detail', kwargs={'slug': slug})
 
     def get_object(self, queryset=None):
         obj = super(DeleteImageView, self).get_object()
-        print('>>> path: ', obj.image.path)
         return obj
 
     def get_context_data(self, **kwargs):
         context = super(DeleteImageView, self).get_context_data()
-        print(context)
         return context
 
     def get_queryset(self):
         return Images.objects.all()
+
+    def get_success_url(self):
+        context = super(DeleteImageView, self).get_context_data()
+        slug = context['object'].project.slug
+        return reverse_lazy('projects:project_update', kwargs={'slug': slug})

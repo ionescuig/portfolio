@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}Update Project{% endblock %}
 
@@ -10,12 +11,6 @@
             {% csrf_token %}
             {{ form.as_p }}
 
-            {% for imag in form.images_set.all %}
-                <span class="col-sm-2">
-                    <img src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
-                </span>
-            {% endfor %}
-
             <input class="btn btn-success btn-sm" type="submit" name="update" value="Update" />
             <a class="btn btn-danger btn-sm" href="{% url 'projects:project_detail' slug=object.slug %}">Cancel</a>
         </form>
@@ -25,6 +20,9 @@
             {% for imag in object.images_set.all %}
                 <span class="col-sm-2">
                     <img src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
+                    <div class="text-center">
+                        <a class="btn btn-danger btn-sm" href="{{ imag.get_absolute_url }}">Delete image</a>
+                    </div>
                 </span>
 
 
