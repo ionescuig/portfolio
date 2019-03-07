@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}New Project{% endblock %}
+
+{% block content %}
+    <br>
+    <h3>Create Image</h3>
+    <form id="post_form" method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" name="submit" value="Add image" />
+    </form>
+{% endblock %}

@@ -15,7 +15,7 @@ Including another URLconf
 """
 
 from django.urls import path
-from .views import createproject, DetailProjectView, UpdateProjectView, ListProjectView, DeleteProjectView, DeleteImageView
+from .views import createproject, DetailProjectView, UpdateProjectView, ListProjectView, DeleteProjectView, DeleteImageView, CreateImageView
 
 urlpatterns = [
     path('', ListProjectView.as_view(), name='project_list'),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('create-project', createproject, name='project_create'),
     path('delete-project/<slug:slug>', DeleteProjectView.as_view(), name='project_delete'),
     path('delete-image/<int:pk>', DeleteImageView.as_view(), name='image_delete'),
+    path('<slug:slug>/create-image', CreateImageView.as_view(), name='image_create'),
 ]

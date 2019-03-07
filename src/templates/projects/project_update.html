@@ -24,10 +24,10 @@
                         <a class="btn btn-danger btn-sm" href="{{ imag.get_absolute_url }}">Delete image</a>
                     </div>
                 </span>
-
-
-
             {% endfor %}
+        <span class="col-sm-2">
+            <a class="btn btn-success" href="{% url 'projects:image_create' slug=object.slug %}">Add image</a>
+        </span>
         </div>
 
     {% endif %}

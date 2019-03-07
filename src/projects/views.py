@@ -136,3 +136,27 @@ class DeleteImageView(LoginRequiredMixin, DeleteView):
         context = super(DeleteImageView, self).get_context_data()
         slug = context['object'].project.slug
         return reverse_lazy('projects:project_update', kwargs={'slug': slug})
+
+
+class CreateImageView(LoginRequiredMixin, CreateView):
+    template_name = 'projects/image_create.html'
+    form_class = ImagesForm
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateImageView, self).get_context_data()
+        context['kwargs'] = self.kwargs
+        return context
+
+    def get_queryset(self):
+        return Images.objects.all()
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        slug = self.kwargs['slug']
+        project = Project.objects.filter(slug__iexact=slug)[0]
+        obj.project = project
+        return super(CreateImageView, self).form_valid(form)
+
+    def get_success_url(self):
+        slug = self.kwargs['slug']
+        return reverse_lazy('projects:project_update', kwargs={'slug': slug})
