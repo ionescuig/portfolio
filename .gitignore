@@ -7,6 +7,10 @@ db.sqlite3
 uenv/
 venv/
 wenv/
+
+static/projects/
+static/cv/
+
 staticfiles/
 __pycache__/
 .idea/
