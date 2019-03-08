@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}New CV{% endblock %}
+
+{% block content %}
+    <br>
+    <h3>Add CV</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-danger" type="submit" name="submit" value="Delete CV" />
+    </form>
+{% endblock %}

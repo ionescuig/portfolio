@@ -55,10 +55,19 @@ class Images(models.Model):
 
 
 class CV(models.Model):
-    document        = models.FileField(upload_to='cv/')
-    created_date    = models.DateTimeField(auto_now_add=True)
-    modified_date   = models.DateTimeField(auto_now=True)
-    visible         = models.BooleanField(default=False)
+    document    = models.FileField(upload_to='cv/', verbose_name='CV')
+    created     = models.DateTimeField(auto_now_add=True)
+    visible     = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = "CVs"
+
+    def __str__(self):
+        path, file = os.path.split(self.document.url)
+        return file
+
+    def get_absolute_url(self):
+        return reverse('projects:cv_delete', kwargs={'pk': self.pk})
 
 
 def auto_delete_file_on_delete(sender, instance, **kwargs):

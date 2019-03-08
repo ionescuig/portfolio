@@ -159,3 +159,25 @@ class CreateImageView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         slug = self.kwargs['slug']
         return reverse_lazy('projects:project_update', kwargs={'slug': slug})
+
+
+class CreateCVView(LoginRequiredMixin, CreateView):
+    template_name = 'projects/cv_create.html'
+    form_class = CVForm
+    success_url = reverse_lazy('projects:cv_list')
+
+    def get_queryset(self):
+        return CV.objects.all()
+
+
+class ListCVView(LoginRequiredMixin, ListView):
+    template_name = 'projects/cv_list.html'
+
+    def get_queryset(self):
+        return CV.objects.all()
+
+
+class DeleteCVView(LoginRequiredMixin, DeleteView):
+    pass
+#     template_name = 'projects/cv_delete.html'
+#     success_url = reverse_lazy('projects:cv_list')
