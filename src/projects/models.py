@@ -17,6 +17,9 @@ class Project(models.Model):
     link_host   = models.URLField(blank=True)
     link_github = models.URLField(blank=True)
 
+    class Meta:
+        ordering = ['title', ]
+
     def save(self, *args, **kwargs):
         if not self.id:
             # newly created object
