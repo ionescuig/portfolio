@@ -8,8 +8,7 @@ uenv/
 venv/
 wenv/
 
-static/projects/
-static/cv/
+media/
 
 staticfiles/
 __pycache__/
