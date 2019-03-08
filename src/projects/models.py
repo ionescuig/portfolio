@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models.signals import pre_save, post_save, post_delete, pre_delete
-from django.dispatch import receiver
+from django.db.models.signals import pre_delete, post_delete
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 import os
@@ -22,7 +21,7 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            # newly created object
+            # for new project
             self.slug = slugify(self.title)
         super(Project, self).save(*args, **kwargs)
 
@@ -94,21 +93,6 @@ def post_delete_project(sender, instance, **kwargs):
             proj.update_position(-1)
 
 
-post_delete.connect(auto_delete_file_on_delete, sender=Images)
 pre_delete.connect(auto_delete_images_on_project_delete, sender=Project)
 post_delete.connect(post_delete_project, sender=Project)
-
-
-
-# next function does nothing. just for testing purposes.
-
-# def project_pre_save_receiver(sender, instance, *args, **kwargs):
-#     position = instance.position
-#     total_positions = Project.objects.all().count()
-#     if position <= total_positions:
-#         projects_for_update = Project.objects.filter(position__gte=position)
-#         for proj in projects_for_update:
-#             proj.update_position(1)
-#
-#
-# pre_save.connect(project_pre_save_receiver, sender=Project)
+post_delete.connect(auto_delete_file_on_delete, sender=Images)

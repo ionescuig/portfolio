@@ -1,11 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db import transaction
-from django.forms import modelformset_factory, inlineformset_factory
-from django.http import HttpResponseRedirect, Http404
-from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, DetailView, ListView, View
-from django.shortcuts import render, redirect
+from django.forms import modelformset_factory
+from django.http import Http404, HttpResponseRedirect
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
+from django.shortcuts import render
 from django.urls import reverse_lazy
 
 from .forms import CVForm, ImagesForm, ProjectForm
