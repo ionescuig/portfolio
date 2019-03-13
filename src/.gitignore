@@ -7,6 +7,11 @@ db.sqlite3
 uenv/
 venv/
 wenv/
+
+media/
+media/cv/
+media/projects/
+
 __pycache__/
 .idea/
 

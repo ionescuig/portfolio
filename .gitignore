@@ -9,6 +9,8 @@ venv/
 wenv/
 
 media/
+media/cv/
+media/projects/
 
 staticfiles/
 __pycache__/
