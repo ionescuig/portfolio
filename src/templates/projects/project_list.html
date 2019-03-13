@@ -7,6 +7,10 @@
     <br>
     <h3>Projects</h3>
     <br>
+    {% if user.is_authenticated %}
+        <a class="btn btn-success" href="{% url 'projects:project_create' %}">Create Project</a>
+        <br><br>
+    {% endif %}
     {% if object_list %}
         {% for obj in object_list %}
             <div class="row">

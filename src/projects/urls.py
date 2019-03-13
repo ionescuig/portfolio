@@ -15,7 +15,7 @@ Including another URLconf
 """
 
 from django.urls import path
-from .views import createproject, DetailProjectView, UpdateProjectView, ListProjectView, DeleteProjectView, DeleteImageView, CreateImageView, CreateCVView, ListCVView, DeleteCVView
+from .views import createproject, DetailProjectView, UpdateProjectView, ListProjectView, DeleteProjectView, DeleteImageView, CreateImageView, CreateCVView, ListCVView, DeleteCVView, UpdateCVView
 
 urlpatterns = [
     path('', ListProjectView.as_view(), name='project_list'),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('<slug:slug>/create-image', CreateImageView.as_view(), name='image_create'),
 
     path('cv', ListCVView.as_view(), name='cv_list'),
+    path('cv-update/<int:pk>', UpdateCVView.as_view(), name='cv_update'),
     path('add-cv', CreateCVView.as_view(), name='cv_create'),
     path('delete-cv/<int:pk>', DeleteCVView.as_view(), name='cv_delete'),
     # add path: download CV

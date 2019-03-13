@@ -173,11 +173,46 @@ class CreateCVView(LoginRequiredMixin, CreateView):
 class ListCVView(LoginRequiredMixin, ListView):
     template_name = 'projects/cv_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(ListCVView, self).get_context_data()
+        cvs_visible = CV.objects.filter(visible__exact=True)
+        if not cvs_visible:
+            context['no_download'] = 'No downloadable CV !!!'
+        return context
+
+    def get_queryset(self):
+        return CV.objects.all().order_by('-visible')
+
+
+class UpdateCVView(LoginRequiredMixin, UpdateView):
+    template_name = 'projects/cv_update.html'
+    form_class = CVForm
+    success_url = reverse_lazy('projects:cv_list')
+
     def get_queryset(self):
         return CV.objects.all()
 
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        if obj.visible:
+            cvs = CV.objects.filter(visible__exact=True)
+            for cv in cvs:
+                cv.visible = False
+                cv.save()
+        return super(UpdateCVView, self).form_valid(form)
+
 
 class DeleteCVView(LoginRequiredMixin, DeleteView):
-    pass
-#     template_name = 'projects/cv_delete.html'
-#     success_url = reverse_lazy('projects:cv_list')
+    template_name = 'projects/cv_delete.html'
+    success_url = reverse_lazy('projects:cv_list')
+
+    def get_object(self, queryset=None):
+        obj = super(DeleteCVView, self).get_object()
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(DeleteCVView, self).get_context_data()
+        return context
+
+    def get_queryset(self):
+        return CV.objects.all()

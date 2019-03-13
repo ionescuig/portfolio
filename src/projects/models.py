@@ -74,15 +74,24 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     """
     Deletes file from filesystem when corresponding `Images` object is deleted.
     """
-    if instance.image:
-        path, file = os.path.split(instance.image.path)
-        # delete file
-        if os.path.isfile(instance.image.path):
-            os.remove(instance.image.path)
-        # delete folder only if empty
-        if path:
-            if not os.listdir(path):
-                os.rmdir(path)
+    try:
+        filename = instance.image.path
+    except:
+        pass
+
+    try:
+        filename = instance.document.path
+    except:
+        pass
+
+    path, file = os.path.split(filename)
+    # delete file
+    if os.path.isfile(filename):
+        os.remove(filename)
+    # delete folder only if empty
+    if path:
+        if not os.listdir(path):
+            os.rmdir(path)
 
 
 def auto_delete_images_on_project_delete(sender, instance, **kwargs):
@@ -103,5 +112,6 @@ def post_delete_project(sender, instance, **kwargs):
 
 
 pre_delete.connect(auto_delete_images_on_project_delete, sender=Project)
+post_delete.connect(auto_delete_file_on_delete, sender=CV)
 post_delete.connect(post_delete_project, sender=Project)
 post_delete.connect(auto_delete_file_on_delete, sender=Images)
