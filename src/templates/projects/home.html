@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+#{% block title %}Gabriel Ionescu{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex align-items-center flex-column" style="margin: 4em;">
+        <div class="text-center">
+            <h1 id="main-first" style="font-family: 'Overpass', sans-serif;">gabriel ionescu</h1>
+            <h2 id="main-second" style="font-family: 'Overpass', sans-serif;">django developer</h2>
+        </div>
+
+    </div>
+
+    <span class="container d-flex h-100"></span>
+
+{% endblock %}

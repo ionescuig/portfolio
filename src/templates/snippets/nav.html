@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent">
         <a class="navbar-brand" href="{% url 'home' %}">Home</a>
     <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
@@ -7,34 +7,42 @@
     <div class="navbar-collapse offcanvas-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/admin">Admin Page</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{% url 'projects:project_list' %}">Projects list</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:project_create' %}">Create Project</a>
+                <a class="nav-link" href="#">Download CV</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:cv_list' %}">CV List</a>
+                <a class="nav-link" href="#">About</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects:cv_create' %}">Add CV</a>
-            </li>
+            {% if user.is_authenticated %}
+                |
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'projects:project_create' %}">Create Project</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'projects:cv_list' %}">CV List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'projects:cv_create' %}">Add CV</a>
+                </li>
+            {% endif %}
+
         </ul>
 
-        <div class="form-inline my-2 my-lg-0">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <div class="nav-link">
-                        {% if user.is_authenticated %}
-                            User: <strong><em>{{ request.user.username }}</em></strong>
-                        {% else %}
-                            No user
-                        {% endif %}
-                    </div>
-                </li>
-            </ul>
-        </div>
+        {% if user.is_authenticated %}
+            <div class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <div class="nav-link">
+                                User: <strong><em>{{ request.user.username }}</em></strong>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
     </div>
 </nav>

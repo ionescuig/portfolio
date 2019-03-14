@@ -12,7 +12,7 @@ from .models import CV, Images, Project
 
 
 class HomeView(TemplateView):
-    template_name = 'projects/underconstruction.html'
+    template_name = 'projects/home.html'
 
 
 @login_required
