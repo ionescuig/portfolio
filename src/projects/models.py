@@ -35,6 +35,9 @@ class Project(models.Model):
         self.position += value
         self.save()
 
+    def get_description(self):
+        return self.description.splitlines()
+
 
 def get_image_filename(instance, filename):
     return'projects/%s/%s' % (instance.project.slug, filename)

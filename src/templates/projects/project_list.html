@@ -4,43 +4,34 @@
 {% block title %}Projects{% endblock %}
 
 {% block content %}
-    <br>
-    <h3>Projects</h3>
-    <br>
-    {% if user.is_authenticated %}
-        <a class="btn btn-success" href="{% url 'projects:project_create' %}">Create Project</a>
-        <br><br>
-    {% endif %}
+    <div class="align-items-center flex-column" style="margin: 4rem; margin-bottom: 6rem;">
+        <div class="text-center">
+            <h1 style="font-family: 'Overpass', sans-serif; color: #d5ea9f; text-shadow: 0 0 15px black;">
+                <strong>Projects</strong></h1>
+        </div>
+    </div>
+
     {% if object_list %}
         {% for obj in object_list %}
-            <div class="row">
-                <div class="col-sm-4">
-                    <strong>
-                        <a style="color: #279bbe" href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
-                    </strong>
-                    <p class="text-muted">
-                        <small>Position: {{ obj.position }}</small>
-                    </p>
-                    <p>
-                        Description: {{ obj.description }}
-                    </p>
-                </div>
-
-                <div class="col-sm-8">
+                <div class="card bg-light mb-3">
                     <div class="row">
-                        {% for imag in obj.images_set.all %}
-                            <span class="col-sm-2">
-                                <img src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
-                            </span>
-                        {% endfor %}
+
+                        <div class="col-md-6 align-self-center">
+                            <img class="card-img" src="{{ obj.images_set.first.image.url }}" width="100%" alt="{{ obj.images_set.first.image.url }}">
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-family: 'Overpass', sans-serif;"><strong>{{ obj.title }}</strong></h5>
+                                <p class="card-text">{{ obj.description }}</p>
+                                <a href="{{ obj.get_absolute_url }}" class="btn btn-info">More</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-            <hr>
         {% endfor %}
     {% else %}
         <h3>No projects yet</h3>
-
     {% endif %}
-
 {% endblock %}

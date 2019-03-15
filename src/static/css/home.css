@@ -5,47 +5,19 @@ body {
     color: #C4CAC0;
 }
 
-body::after {
-    opacity: 1;
+body {
+    background-image: url("../images/background-home.jpeg");
+
 }
 
 #main-first {
     color: #FEFCE5;
     text-shadow: 0 0 25px #041820;
+    font-size: 8vw;
 }
-
+/**/
 #main-second {
     color: #d5ea9f;
     text-shadow: 0 0 15px black;
-}
-
-/* 1rem = 16px */
-/* Smallest devices (portrait phones, 120px and up) */
-@media (min-width: 120px) {
-    #main-first {font-size:2rem;}
-    #main-second {font-size:1rem;}
-}
-
-/* Small devices (landscape phones, 544px and up) */
-@media (min-width: 544px) {
-    #main-first {font-size:3.5rem;}
-    #main-second {font-size:1.75rem;}
-}
-
-/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-@media (min-width: 768px) {
-    #main-first {font-size:5rem;}
-    #main-second {font-size:2.5rem;}
-}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    #main-first {font-size:6rem;}
-    #main-second {font-size:3rem;}
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-    #main-first {font-size:8rem;}
-    #main-second {font-size:4rem;}
+    font-size: 4vw;
 }
