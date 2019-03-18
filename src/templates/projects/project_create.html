@@ -1,28 +1,30 @@
-{% extends 'base.html' %}
+{% extends 'base_list.html' %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
 {% block title %}New Project{% endblock %}
 
-{% block content %}
-    <br>
-    <h3>Create Project</h3>
-<form id="post_form" method="post" action="" enctype="multipart/form-data">
+{% block list_title %}Add Project{% endblock %}
+
+{% block list_content %}
+<form id="post_form" method="post" action="" enctype="multipart/form-data"
+      style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; padding: 1rem; margin: 0.5rem">
     {% csrf_token %}
     {% for hidden in postForm.hidden_fields %}
         {{ hidden }}
     {% endfor %}
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-7">
             {{ projectForm|crispy }}
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-5">
             {{ formset.management_form }}
             {% for form in formset %}
-                {{ form|crispy }} <br>
+                {{ form|crispy }}<br>
             {% endfor %}
         </div>
     </div>
-    <input type="submit" name="submit" value="Create" />
+    <input class="btn btn-success" type="submit" name="submit" value="Create" />
+    <a class="btn btn-danger" href="{% url 'projects:project_list' %}">Cancel</a>
 </form>
 {% endblock %}

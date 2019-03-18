@@ -1,43 +1,77 @@
-{% extends 'base.html' %}
+{% extends 'base_list.html' %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 
-{% block title %}CV List{% endblock %}
+{% block title %}CV{% endblock %}
 
-{% block content %}
-    <br>
-    <h3>CV List</h3>
+{% block list_title %}
+    {% if user.is_authenticated %}
+        CV List
+    {% else %}
+        Download CV
+    {% endif %}
+{% endblock %}
+
+{% block list_content %}
     {% if no_download %}
-        <h1 style="color: red"><strong>{{ no_download }}</strong></h1>
+        <h1 class="text-center" style="color: red"><strong>{{ no_download }}</strong></h1>
+        <br><br>
     {% endif %}
     <br>
     {% if user.is_authenticated %}
-        <a class="btn btn-success" href="{% url 'projects:cv_create' %}">Add CV</a>
-        <br><br>
-    {% endif %}
-    {% if object_list %}
-        {% for obj in object_list %}
-            <div class="row">
-                <div class="col-sm-4">
-                    <strong>{{ obj }}</strong>
-                    <br><a class="btn btn-info btn-sm" href="{% url 'projects:cv_update' pk=obj.pk %}">Update CV</a><br>
-
-                    <p class="text-muted">
-                        <small>Created: {{ obj.created|date:'d M Y - H:i' }}</small>
-                    </p>
-                    <p>
-                        Visible: {{ obj.visible }}
-                    </p>
-                    <p><a href="{{ obj.document.url }}">Download</a></p>
-                    <a class="btn btn-danger btn-sm" href="{{ obj.get_absolute_url }}">Delete CV</a>
-                </div>
-            </div>
-            <hr>
-        {% endfor %}
+        {% if object_list %}
+            {% for obj in object_list %}
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        {% if obj.visible %}
+                            <div class="col-sm-6 mb-3"
+                                 style="background: rgba(70, 89, 18, 0.3); border-radius: 0.5em; margin: 0.5rem;">
+                        {% else %}
+                            <div class="col-sm-6 mb-3"
+                                 style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; margin: 0.5rem;">
+                        {% endif %}
+                                <div class="row mt-2 mb-2">
+                                    <div class="col-sm-6">
+                                        <strong>{{ obj }}</strong>
+                                        <p class="text-muted">
+                                            <small>Created: {{ obj.created|date:'d M Y - H:i' }}</small>
+                                        </p>
+                                        {% if obj.visible %}
+                                            <spam style="color: #37A745"><em>Active</em></spam>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <a class="btn btn-success btn-sm mb-1"
+                                           style="width: 7rem" href="{{ obj.document.url }}">
+                                            Download</a>
+                                        <br>
+                                        <a class="btn btn-info btn-sm mb-1"
+                                           style="width: 7rem" href="{% url 'projects:cv_update' pk=obj.pk %}">
+                                            Update CV</a>
+                                        <br>
+                                        <a class="btn btn-danger btn-sm"
+                                           style="width: 7rem" href="{{ obj.get_absolute_url }}">
+                                            Delete CV</a>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+            {% endfor %}
+        {% else %}
+            <h1 class="text-center" style="color: red"><strong>No CV yet</strong></h1>
+        {% endif %}
 
     {% else %}
-        <h4>No CV yet</h4>
-
+        <div class="row">
+            {% if downloadable.document.url %}
+                <div class="col-md-4"></div>
+                <div class="col-md-4 text-center">
+                    <a class="btn btn-success btn-lg" href="{{ downloadable.document.url }}">Download CV</a>
+                </div>
+                <div class="col-md-4"></div>
+            {% endif %}
+        </div>
     {% endif %}
 
 {% endblock %}

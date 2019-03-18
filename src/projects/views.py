@@ -170,14 +170,16 @@ class CreateCVView(LoginRequiredMixin, CreateView):
         return CV.objects.all()
 
 
-class ListCVView(LoginRequiredMixin, ListView):
+class ListCVView(ListView):
     template_name = 'projects/cv_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(ListCVView, self).get_context_data()
         cvs_visible = CV.objects.filter(visible__exact=True)
         if not cvs_visible:
-            context['no_download'] = 'No downloadable CV !!!'
+            context['no_download'] = 'No downloadable CV yet !'
+        else:
+            context['downloadable'] = cvs_visible[0]
         return context
 
     def get_queryset(self):

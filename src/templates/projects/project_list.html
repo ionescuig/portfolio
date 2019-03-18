@@ -1,35 +1,38 @@
-{% extends 'base.html' %}
+{% extends 'base_list.html' %}
 {% load staticfiles %}
 
 {% block title %}Projects{% endblock %}
 
-{% block content %}
-    <div class="align-items-center flex-column" style="margin: 4rem; margin-bottom: 6rem;">
-        <div class="text-center">
-            <h1 style="font-family: 'Overpass', sans-serif; color: #d5ea9f; text-shadow: 0 0 15px black;">
-                <strong>Projects</strong></h1>
-        </div>
-    </div>
-
+{% block list_title %}Projects{% endblock %}
+{% block list_content %}
     {% if object_list %}
         {% for obj in object_list %}
-                <div class="card bg-light mb-3">
-                    <div class="row">
+                <div class="row mb-3"
+                     style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; padding: 1rem; margin: 0.5rem">
 
-                        <div class="col-md-6 align-self-center">
-                            <img class="card-img" src="{{ obj.images_set.first.image.url }}" width="100%" alt="{{ obj.images_set.first.image.url }}">
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-family: 'Overpass', sans-serif;"><strong>{{ obj.title }}</strong></h5>
-                                <p class="card-text">{{ obj.description }}</p>
-                                <a href="{{ obj.get_absolute_url }}" class="btn btn-info">More</a>
-                            </div>
-                        </div>
-
+                    <div class="col-lg-6 align-self-center">
+                        <img class="card-img" src="{{ obj.images_set.first.image.url }}" width="100%"
+                             alt="{{ obj.images_set.first.image.url }}">
                     </div>
+
+                    <div class="col-lg-6">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-family: 'Overpass', sans-serif; font-size: 2em">
+                                <strong>
+                                    {% if obj.link_host %}
+                                        <a id="obj-title" href="{{ obj.link_host }}" target="_blank">
+                                            {{ obj.title }}</a>
+                                    {% else %}
+                                        {{ obj.title }}
+                                    {% endif %}
+                                </strong></h5>
+                            <p class="card-text text-muted text-justify">{{ obj.get_description|first }}</p>
+                            <a href="{{ obj.get_absolute_url }}" class="btn btn-info">More</a>
+                        </div>
+                    </div>
+
                 </div>
+
         {% endfor %}
     {% else %}
         <h3>No projects yet</h3>

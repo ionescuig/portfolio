@@ -10,24 +10,20 @@
                 <a class="nav-link" href="{% url 'projects:project_list' %}">Projects list</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Download CV</a>
+                <a class="nav-link" href="{% url 'projects:cv_list' %}">CV</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
             </li>
             {% if user.is_authenticated %}
-                |
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin Page</a>
+                <li class="nav-item nav-custom">
+                    <a class="nav-link" href="{% url 'projects:project_create' %}">Add Project</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'projects:project_create' %}">Create Project</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'projects:cv_list' %}">CV List</a>
-                </li>
-                <li class="nav-item">
+                <li class="nav-item nav-custom">
                     <a class="nav-link" href="{% url 'projects:cv_create' %}">Add CV</a>
+                </li>
+                <li class="nav-item nav-custom">
+                    <a class="nav-link" href="/admin" target="_blank">Admin Page</a>
                 </li>
             {% endif %}
 
