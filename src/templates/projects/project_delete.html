@@ -1,27 +1,36 @@
-{% extends 'base.html' %}
+{% extends 'base_list.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
-{% block title %}Delete project{% endblock %}
+{% block title %}Delete Project{% endblock %}
 
-{% block content %}
-    <br>
-    {% if user.is_authenticated %}
-        <form method="POST">
-            {% csrf_token %}
-            <br>Title: {{ object.title }}
-            <br>Description: {{ object.description }}
-            <br>
-            {% for imag in object.images_set.all %}
-                <img src="{{ imag.image.url }}" width='20%' alt="{{ imag.image.url }}">
-            {% endfor %}
+{% block list_title %}Delete Project<br><h2>{{ object }}</h2>{% endblock %}
 
-            <br><br>
-            <spam>
-                Are you sure you want to delete <strong>{{ object.title }}</strong>?
-                <input class="btn btn-danger" type="submit" value="Yes, I am sure">
-                <a class="btn btn-warning" href="{{ object.get_absolute_url }}">Cancel</a>
-            </spam>
-        </form>
-    {% endif %}
+{% block list_content %}
+    <div class="row">
+        <div class="mb-3 text-center" style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; margin: 0.5rem;">
+            <div class="m-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for line in object.get_description %}
+                        <ul class="list-group list-unstyled">
+                            <li>{{ line }}</li>
+                        </ul>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    {% for imag in object.images_set.all %}
+                        <img src="{{ imag.image.url }}" width='15%' alt="{{ imag.image.url }}">
+                    {% endfor %}
 
+                    <br><br>
+                    <spam>
+                        Are you sure you want to <strong>delete</strong> this project?<br>
+                        <input class="btn btn-success" type="submit" value="Yes, I am sure">
+                        <a class="btn btn-danger" href="{{ object.get_absolute_url }}">Cancel</a>
+                    </spam>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

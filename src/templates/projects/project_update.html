@@ -1,34 +1,37 @@
-{% extends 'base.html' %}
+{% extends 'base_list.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block title %}Update Project{% endblock %}
 
-{% block content %}
-    <br>
-    <h3>Update Project</h3>
-    {% if user.is_authenticated %}
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
+{% block list_title %}Update Project<br><h2>{{ object.title }}</h2>{% endblock %}
 
-            <input class="btn btn-success btn-sm" type="submit" name="update" value="Update" />
-            <a class="btn btn-danger btn-sm" href="{% url 'projects:project_detail' slug=object.slug %}">Cancel</a>
-        </form>
-        <hr>
-        <br><br>
-        <div class="row">
-            {% for imag in object.images_set.all %}
-                <span class="col-sm-2">
-                    <img src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
-                    <div class="text-center">
-                        <a class="btn btn-danger btn-sm" href="{{ imag.get_absolute_url }}">Delete image</a>
-                    </div>
-                </span>
-            {% endfor %}
-        <span class="col-sm-2">
-            <a class="btn btn-success" href="{% url 'projects:image_create' slug=object.slug %}">Add image</a>
-        </span>
+{% block list_content %}
+    <div class="row" style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; padding: 1rem; margin: 0.5rem">
+        <div class="col-lg-8 mb-3">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+                <input class="btn btn-success" type="submit" name="update" value="Update" />
+                <a class="btn btn-danger" href="{% url 'projects:project_detail' slug=object.slug %}">Cancel</a>
+            </form>
         </div>
+        <div class="col-lg-4">
+            <div class="row">
+                {% for imag in object.images_set.all %}
+                    <span class="mb-3">
+                        <img class="mb-1" src="{{ imag.image.url }}" width='100%' alt="{{ imag.image.url }}">
+                        <div class="text-center">
+                            <a class="btn btn-danger btn-sm" href="{{ imag.get_absolute_url }}">Delete image</a>
+                        </div>
+                    </span>
+                {% endfor %}
+                <div class="mx-auto m-3">
+                    <a class="btn btn-success" href="{% url 'projects:image_create' slug=object.slug %}">Add image</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    {% endif %}
 {% endblock %}

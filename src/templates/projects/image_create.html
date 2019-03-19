@@ -1,17 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'base_list.html' %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
-{% block title %}New Image{% endblock %}
+{% block title %}Add Image{% endblock %}
 
-{% block content %}
-    <br>
-    <h3>Create Image</h3>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <input type="submit" name="submit" value="Add image" />
-    </form>
-    <a class="btn btn-danger btn-sm" href="{% url 'projects:project_update' view.kwargs.slug %}">Cancel</a>
+{% block list_title %}Add Image{% endblock %}
+
+{% block list_content %}
+    <div class="row">
+        <div class="col-md-2 col-lg-4"></div>
+        <div class="col-md-8 col-lg-4 mb-3" style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; margin: 0.5rem;">
+            <div class="m-3">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input class="btn btn-success" type="submit" name="submit" value="Add Image" />
+                <a class="btn btn-danger" href="{% url 'projects:project_update' view.kwargs.slug %}">Cancel</a>
+            </form>
+        </div>
+        <div class="col-md-2 col-lg-4"></div>
+    </div>
 
 {% endblock %}

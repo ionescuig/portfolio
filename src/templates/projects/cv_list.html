@@ -20,13 +20,13 @@
     {% if user.is_authenticated %}
         {% if object_list %}
             {% for obj in object_list %}
-                    <div class="row">
+                    <div class="row mb-2">
                         <div class="col-sm-3"></div>
                         {% if obj.visible %}
-                            <div class="col-sm-6 mb-3"
+                            <div class="col-sm-6"
                                  style="background: rgba(70, 89, 18, 0.3); border-radius: 0.5em; margin: 0.5rem;">
                         {% else %}
-                            <div class="col-sm-6 mb-3"
+                            <div class="col-sm-6"
                                  style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; margin: 0.5rem;">
                         {% endif %}
                                 <div class="row mt-2 mb-2">
@@ -58,6 +58,9 @@
                         <div class="col-sm-3"></div>
                     </div>
             {% endfor %}
+            <div class="text-center">
+                <a class="btn btn-danger" href="{% url 'projects:cv_create' %}">Add CV</a>
+            </div>
         {% else %}
             <h1 class="text-center" style="color: red"><strong>No CV yet</strong></h1>
         {% endif %}

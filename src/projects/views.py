@@ -218,3 +218,7 @@ class DeleteCVView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return CV.objects.all()
+
+
+class AboutView(TemplateView):
+    template_name = 'projects/about.html'

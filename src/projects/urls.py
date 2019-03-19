@@ -28,8 +28,8 @@ urlpatterns = [
     path('<slug:slug>/create-image', CreateImageView.as_view(), name='image_create'),
 
     path('cv', ListCVView.as_view(), name='cv_list'),
-    path('cv-update/<int:pk>', UpdateCVView.as_view(), name='cv_update'),
     path('add-cv', CreateCVView.as_view(), name='cv_create'),
+    path('cv-update/<int:pk>', UpdateCVView.as_view(), name='cv_update'),
     path('delete-cv/<int:pk>', DeleteCVView.as_view(), name='cv_delete'),
     # add path: download CV
 ]
