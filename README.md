@@ -5,4 +5,7 @@
 
 ### personal portfolio website
 
+Hosted: on www.gabriel-ionescu.com
+
 - *work in progress...*
+
