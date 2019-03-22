@@ -21,7 +21,11 @@
                     <br>
                     {% for imag in object.images_set.all %}
                         <a href="{{ imag.image.url }}" target="_blank">
-                            <img class="mb-1" src="{{ imag.image.url }}" width='49%' alt="{{ imag.image.url }}">
+                            <img class="mb-1"
+                                 src="{{ imag.image.url }}"
+                                 style="border-radius: 5px"
+                                 width='49%'
+                                 alt="{{ imag.image.url }}">
                         </a>
                     {% endfor %}
 

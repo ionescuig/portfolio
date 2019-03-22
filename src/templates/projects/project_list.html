@@ -11,7 +11,9 @@
                      style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; padding: 1rem; margin: 0.5rem">
 
                     <div class="col-lg-6 align-self-center">
-                        <img class="card-img" src="{{ obj.images_set.first.image.url }}" width="100%"
+                        <img src="{{ obj.images_set.first.image.url }}"
+                             style="border-radius: 5px"
+                             width="100%"
                              alt="{{ obj.images_set.first.image.url }}">
                     </div>
 
