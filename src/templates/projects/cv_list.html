@@ -42,14 +42,17 @@
                                     <div class="col-sm-6 text-right">
                                         <a class="btn btn-success btn-sm mb-1"
                                            style="width: 7rem" href="{{ obj.document.url }}">
+                                            <i class="fas fa-download"></i>
                                             Download</a>
                                         <br>
                                         <a class="btn btn-info btn-sm mb-1"
                                            style="width: 7rem" href="{% url 'projects:cv_update' pk=obj.pk %}">
+                                            <i class="fas fa-edit"></i>
                                             Update CV</a>
                                         <br>
                                         <a class="btn btn-danger btn-sm"
                                            style="width: 7rem" href="{{ obj.get_absolute_url }}">
+                                            <i class="fas fa-trash-alt"></i>
                                             Delete CV</a>
                                         <br>
                                     </div>
