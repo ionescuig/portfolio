@@ -26,6 +26,13 @@ urlpatterns = [
     path('about', AboutView.as_view(), name='about'),
 ]
 
-# urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATICFILES_STORAGE)
+# -----------------------------
+# --- For local development ---
+# -----------------------------
+try:
+    from .settings.local import DEBUG
+except:
+    DEBUG = False
 
-# urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if DEBUG:
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
