@@ -6,7 +6,7 @@ from .models import Project, Images, CV
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['title', 'description', 'position', 'link_host', 'link_github']
+        fields = ['title', 'description', 'technologies', 'position', 'link_host', 'link_github', 'visible']
         error_messages = {
             'title': {
                 'unique': 'Title already exists!'
@@ -15,6 +15,10 @@ class ProjectForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
+        self.fields['technologies'].widget.attrs['placeholder'] =\
+            'Separate items by comma, include "-" for version. Ex: python-3.6,django-2.1,html-,css-'
+        self.fields['link_host'].widget.attrs['placeholder'] = 'https://www.example.com'
+        self.fields['link_github'].widget.attrs['placeholder'] = 'https://www.example.com'
 
         # make a list of available positions
         total_projects = Project.objects.all().count()

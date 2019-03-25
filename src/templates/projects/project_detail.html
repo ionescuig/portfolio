@@ -17,6 +17,26 @@
                             <li>{{ line }}</li>
                         </ul>
                     {% endfor %}
+
+                    {% if object.get_technologies|first != '' %}
+                        <br>
+                        {% for tech in object.get_technologies %}
+                            <div style="display: inline-block">
+                                <img src="https://img.shields.io/badge/{{ tech }}-brightgreen.svg" alt="">
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <hr>
+
+                    {% if object.link_host or object.link_github %}
+                        Links:
+                    {% endif %}
+                    {% if object.link_host %}
+                        <a class="btn btn-link" href="{{ object.link_host }}" target="_blank">{{ object.title }}</a>
+                    {% endif %}
+                    {% if object.link_github %}
+                        <a class="btn btn-link" href="{{ object.link_github }}" target="_blank">GitHub</a>
+                    {% endif %}
                     <br>
                     <br>
                     {% for imag in object.images_set.all %}

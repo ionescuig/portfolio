@@ -7,8 +7,13 @@
 {% block list_content %}
     {% if object_list %}
         {% for obj in object_list %}
+            {% if obj.visible %}
                 <div class="row mb-3"
                      style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; padding: 1rem; margin: 0.5rem">
+            {% else %}
+                <div class="row mb-3"
+                     style="background: rgba(200, 89, 18, 0.5); border-radius: 0.5em; padding: 1rem; margin: 0.5rem">
+            {% endif %}
 
                     <div class="col-lg-6 align-self-center">
                         <img src="{{ obj.images_set.first.image.url }}"

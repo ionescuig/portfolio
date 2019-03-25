@@ -15,6 +15,8 @@ class Project(models.Model):
     position    = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000)])
     link_host   = models.URLField(blank=True)
     link_github = models.URLField(blank=True)
+    technologies    = models.CharField(max_length=250, default='', blank=True)
+    visible     = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['title', ]
@@ -37,6 +39,9 @@ class Project(models.Model):
 
     def get_description(self):
         return self.description.splitlines()
+
+    def get_technologies(self):
+        return self.technologies.split(",")
 
 
 def get_image_filename(instance, filename):
@@ -75,7 +80,7 @@ class CV(models.Model):
 
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     """
-    Deletes file from Amazon S3 Bucket when corresponding `Images` object is deleted.
+    Deletes file from Amazon S3 Bucket when corresponding 'Images'/'CV' object is deleted.
     """
     try:
         instance.image.delete(save=False)
@@ -86,6 +91,28 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
         instance.document.delete(save=False)
     except:
         pass
+
+    # """
+    # Deletes file from filesystem when corresponding 'Images'/'CV' object is deleted.
+    # """
+    # try:
+    #     filename = instance.image.path
+    # except:
+    #     pass
+    #
+    # try:
+    #     filename = instance.document.path
+    # except:
+    #     pass
+    #
+    # path, file = os.path.split(filename)
+    # # delete file
+    # if os.path.isfile(filename):
+    #     os.remove(filename)
+    # # delete folder only if empty
+    # if path:
+    #     if not os.listdir(path):
+    #         os.rmdir(path)
 
 
 def auto_delete_images_on_project_delete(sender, instance, **kwargs):

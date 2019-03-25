@@ -99,8 +99,17 @@ class UpdateProjectView(LoginRequiredMixin, UpdateView):
 
 
 class ListProjectView(ListView):
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ListProjectView, self).get_context_data()
+        return context
+
     def get_queryset(self):
-        return Project.objects.all().order_by('position')
+        if self.request.user.is_authenticated:
+            projects = Project.objects.all().order_by('position')
+        else:
+            projects = Project.objects.filter(visible=True).order_by('position')
+
+        return projects
 
 
 class DeleteProjectView(LoginRequiredMixin, DeleteView):

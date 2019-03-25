@@ -60,3 +60,8 @@ body {
     color: yellow;
     text-shadow: 0 0 10px darkred;
 }
+
+input::placeholder {
+    font-size: 0.8rem;
+    font-style: italic;
+}
