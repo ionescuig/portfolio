@@ -7,3 +7,7 @@
 
 Hosted on: www.gabriel-ionescu.com
 
+<p>
+Code hosted on heroku.
+<br>
+Images hosted on Amazon AWS S3 server.</p>
