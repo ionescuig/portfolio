@@ -7,53 +7,53 @@
 {% block list_title %}About{% endblock %}
 
 {% block list_content %}
-    <div class="row mb-3" style="background: rgba(70, 89, 18, 0.08); border-radius: 0.5em; margin: 0.5rem;">
-        <div class="m-3 text-center">
+    <div class="col-sm-10 mx-auto obj-visible">
+        <div class="row">
+            <div class="col-sm-6">
 
-            <div>
-                <p>
-                    Self taught django developer from Plymouth, UK,
-                    looking to make a career in web development (django).
-                </p>
-                <p>
-                    A whiiile ago I finished a IT High School where I studied Pascal, C++ and
-                    <br>in 2014 I went to Plymouth City College for a
-                    BTEC Level3 – Certificate in IT (Distinction*) where I studied python.
-                    <br>
-                    This started me again and I wanted more (time flies really fast when having fun!).
-                </p>
-                <p>
-                    So, after tutorials and small projects I moved to the next step: django.
-                    <br>
-                    Now I am building my experience working on different projects in my limited time
-                    (with python, django, html, css, git, amazon aws s3, heroku, pycharm)
-                    <br>and looking to make this a full job.
-                </p>
-            </div>
+                <div class="row align-items-center h-100 m-1">
+                    <h5 class="card-title" style="color: #757f59">
+                        <small>
+                            Time flies when you’re having fun!
+                        </small>
+                    </h5>
+                    <p class="card-text text-justify">
+                        After a long period of just repairing computers and helping others I decided to help myself as well.
+                        <br><br>
+                        Some while ago I finished a IT High School where I studied algorithms, Pascal,
+                        C++ and in 2014 I went to Plymouth City College for a
+                        BTEC Level3 – Certificate in IT (Distinction*) where was exposed to python.
+                        <br><br>
+                        Two years ago I start learning python and one year ago I start specialising in django.
+                        <br>
+                        Now I am building my experience working on different projects in my limited time
+                        (with python, django, html, css, git, amazon aws s3, heroku, pycharm)
+                        and looking to make this a full job.
 
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4 mb-3">
-                    <img src="{% static 'images/portrait.jpg' %}"
-                         style="border-radius: 5px"
-                         width="100%"
-                         alt="Portrait">
+                    </p>
                 </div>
-                <div class="col-md-4"></div>
             </div>
 
-            <div>
-                <a class="btn btn-primary"
-                   href="https://www.linkedin.com/in/gabriel-ionescu/"
-                   style="background-color: #1C77B5;"
-                   target="_blank">
-                    <i class="fab fa-linkedin fa-lg" style="color: #FAFCFE;"></i>
-                    LinkedIn</a>
-                <a class="btn btn-primary"
-                   href="mailto: ionescuig@yahoo.com"
-                   style="background-color: #1C77B5;">
-                    <i class="fas fa-envelope fa-lg" style="color: #FAFCFE;"></i>
-                    Email</a>
+            <div class="col-sm-6 text-center">
+                <img src="{% static 'images/portrait.jpg' %}"
+                     class="m-1"
+                     style="border-radius: 5px"
+                     width="75%"
+                     alt="Portrait">
+
+
+                <div class="m-1">
+                    <a href="https://www.linkedin.com/in/gabriel-ionescu/" target="_blank">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                    <a href="https://twitter.com/ionescuig" target="_blank">
+                        <i class="fab fa-twitter-square fa-2x"></i>
+                    </a>
+                    <a href="mailto: ionescuig@yahoo.com">
+                        <i class="fas fa-envelope-square fa-2x"></i>
+                    </a>
+
+                </div>
             </div>
         </div>
     </div>

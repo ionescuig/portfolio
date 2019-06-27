@@ -1,23 +1,29 @@
-body {
-    display: flex;
-    align-items: center;
-
-    color: #C4CAC0;
-}
-
-body {
-    background-image: url("../images/background-home.jpeg");
-
-}
-
 #main-first {
-    color: #FEFCE5;
-    text-shadow: 0 0 25px #041820;
-    font-size: 8vw;
-}
-/**/
-#main-second {
     color: #d5ea9f;
-    text-shadow: 0 0 15px black;
-    font-size: 4vw;
+    text-shadow: 0 0 1.4vw #041820;
+    font-family: 'Overpass', sans-serif;
+    font-size: 7vmax;
+}
+
+#main-second {
+    color: #FEFCE5;
+    text-shadow: 0 0 15px #041820;
+    font-family: 'Overpass', sans-serif;
+    font-size: 3vmax;
+}
+
+#main-third {
+    color: #757f59;
+    font-size: 2vmax;
+    word-spacing: 2vmax;
+}
+
+.nav-home {
+    color: #757f59;
+}
+
+.nav-home:hover {
+    color: #757f59;
+    text-shadow: 0 0 1vw #041820;
+    text-decoration: none;
 }

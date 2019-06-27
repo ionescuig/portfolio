@@ -105,7 +105,7 @@ class ListProjectView(ListView):
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            projects = Project.objects.all().order_by('position')
+            projects = Project.objects.all().order_by('visible', 'position')
         else:
             projects = Project.objects.filter(visible=True).order_by('position')
 
@@ -192,7 +192,11 @@ class ListCVView(ListView):
         return context
 
     def get_queryset(self):
-        return CV.objects.all().order_by('-visible')
+        if self.request.user.is_authenticated:
+            cvs = CV.objects.all().order_by('-visible')
+        else:
+            cvs = CV.objects.filter(visible=True)
+        return cvs
 
 
 class UpdateCVView(LoginRequiredMixin, UpdateView):

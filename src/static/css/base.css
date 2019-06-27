@@ -1,22 +1,8 @@
 body, html {
     height: 100%;
-    margin: 0;
 }
 
 body {
-    /* The image used */
-    background-color: #FFFFFF;
-    background-image: url("../images/background-base.jpeg");
-    background-attachment: fixed;
-
-    /* Full height */
-    height: 100%;
-
-    /* Center and scale the image nicely */
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-size: cover;
-
     padding-top: 50px;
 }
 
@@ -25,7 +11,7 @@ body {
     background: -webkit-linear-gradient(to bottom, #FF0080, #FF8C00, #40E0D0);
     background: linear-gradient(
             to bottom,
-            rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.7), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+            rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0));
 }
 
 .navbar-toggler .navbar-toggler-icon{
@@ -49,11 +35,9 @@ body {
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
-    background: linear-gradient(
-            to bottom,
-            rgba(256, 256, 256, 0.7), rgba(70, 89, 18, 0.9));
     color: white;
-    border-radius: 0.3em;
+    text-shadow: 0 0 2vw white;
+    text-decoration: none;
 }
 
 .navbar-dark .navbar-nav .nav-custom .nav-link {

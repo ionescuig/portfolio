@@ -1,9 +1,49 @@
+#list-title{
+    font-family: 'Overpass', sans-serif;
+    color: #d5ea9f;
+    text-shadow: 0 0 15px black;
+    font-size: 6vmin;
+}
+
 #obj-title {
-    color: black;
+    color: #757f59;
 }
 
 #obj-title:hover {
-    color: #d5ea9f;
-    text-shadow: 0 0 7px black;
+    color: #757f59;
+    text-shadow: 0 0 1vw #041820;
+    text-decoration: none;
+}
+
+.obj-visible {
+    background: rgba(70, 89, 18, 0.05);
+    border-radius: 0.5em;
+    padding: 1rem;
+    margin: 0.5rem
+}
+
+.obj-invisible {
+    background: rgba(200, 89, 18, 0.5);
+    border-radius: 0.5em;
+    padding: 1rem;
+    margin: 0.5rem
+}
+
+.card-title {
+    font-family: 'Overpass', sans-serif;
+    font-size: 4vmin;
+}
+
+.card-text {
+    font-size: 2vmin;
+}
+
+.btn-more {
+    color: #757f59;
+}
+
+.btn-more:hover {
+    color: #757f59;
+    text-shadow: 0 0 0.5vw #041820;
     text-decoration: none;
 }
