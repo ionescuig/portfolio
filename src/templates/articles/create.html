@@ -6,9 +6,11 @@
     New Article
 {% endblock %}
 
+{% block list_title %}
+    New Article
+{% endblock %}
+
 {% block list_content %}
-    <h1 class="text-center">New Article</h1>
-    <hr>
     <form method="POST">
         {% csrf_token %}
         {{ form.title|as_crispy_field }}

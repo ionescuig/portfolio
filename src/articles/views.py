@@ -26,7 +26,7 @@ def publish_article_view(request, *args, **kwargs):
         if not article.published_date:
             article.published_date = timezone.now()
         article.save()
-        return redirect('home')
+        return redirect('articles:all')
     # if the user is not the author raise Page Not Found error
     else:
         raise Http404()
