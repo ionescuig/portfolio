@@ -1,0 +1,18 @@
+{% extends 'base_list.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    New Article
+{% endblock %}
+
+{% block list_content %}
+    <h1 class="text-center">New Article</h1>
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.title|as_crispy_field }}
+        {{ form.content.label }}{{ form.content }}
+        <input type="submit" class="btn btn-success" value="Create">
+    </form>
+{% endblock %}

@@ -19,7 +19,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
-            {% if user.is_authenticated %}
+            {% if user.is_staff %}
                 <span class="nav-item nav-custom">
                     <i class="nav-link fas fa-tools"></i>
                 </span>
@@ -34,6 +34,16 @@
                         Admin Page
                         <i class="fas fa-external-link-square-alt"></i>
                     </a>
+                </li>
+                |
+                <li class="nav-item nav-custom">
+                    <a class="nav-link" href="{% url 'articles:all' %}">All articles</a>
+                </li>
+                <li class="nav-item nav-custom">
+                    <a class="nav-link" href="{% url 'articles:list' %}">My articles</a>
+                </li>
+                <li class="nav-item nav-custom">
+                    <a class="nav-link" href="{% url 'articles:create' %}">New article</a>
                 </li>
             {% endif %}
 

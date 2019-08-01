@@ -19,7 +19,6 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -35,14 +34,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # local apps
+    'articles',
+    'projects',
+
+    # third party apps
+    'crispy_forms',
+    'django_summernote',
+    'storages',
+
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'projects',
 ]
 
 MIDDLEWARE = [
@@ -111,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
@@ -142,3 +149,31 @@ CSRF_COOKIE_SECURE              = False
 SECURE_HSTS_SECONDS             = None
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
 SECURE_FRAME_DENY               = False
+
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        # Change editor size
+        'width': '100%',
+        'height': '550',
+        'toolbar': [
+            ["style", ["style", "add-text-tags"]],
+            ["font", ["bold", "italic", "underline", "superscript", "subscript", "strikethrough", "clear"]],
+            ["fontname", ["fontname"]],
+            ["fontsize", ["fontsize"]],
+            ["color", ["color"]],
+            ["para", ["ul", "ol", "paragraph"]],
+            ["height", ["height"]],
+            ["table", ["table"]],
+            ["insert", ["link", "picture", "video", "hr"]],
+            ["view", ["fullscreen", "codeview"]],
+            ["help", ["help"]]
+        ],
+    },
+    # Custom css/js for SummernoteWidget.
+    'css': (
+        '/static/css/summernote-add-text-tags.css',
+    ),
+    'js': (
+        '/static/js/summernote-add-text-tags.js',
+    ),
+}

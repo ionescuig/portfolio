@@ -34,15 +34,22 @@ ALLOWED_HOSTS = ['gabriel-ionescu.herokuapp.com', '.gabriel-ionescu.com']
 # Application definition
 
 INSTALLED_APPS = [
+    # local apps
+    'articles',
+    'projects',
+
+    # third party apps
+    'crispy_forms',
+    'django_summernote',
+    'storages',
+
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'storages',
-    'projects',
 ]
 
 MIDDLEWARE = [
