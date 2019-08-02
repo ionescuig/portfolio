@@ -5,7 +5,9 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
-#{% block title %}Gabriel Ionescu{% endblock %}
+{% block title %}Gabriel Ionescu{% endblock %}
+
+{% block navbar %}{% endblock %}
 
 {% block content %}
 
@@ -18,6 +20,7 @@
 
             <h3 id="main-third">
                 <a class="nav-home" href="{% url 'projects:project_list' %}">Projects</a>
+                <a class="nav-home" href="{% url 'articles:all' %}">Blog</a>
                 <a class="nav-home" href="{% url 'projects:cv_list' %}">CV</a>
                 <a class="nav-home" href="{% url 'about' %}">About</a>
             </h3>

@@ -17,33 +17,39 @@
 
 {% block list_content %}
     <div>
+    {% if object_list %}
         {% for article in object_list %}
-            <div class="card mb-4">
-                {% if article.published %}
-                    <div class="card-header">
-                        <h4 class="mb-0">
-                            <a href="{% url "articles:detail" slug=article.slug %}">{{ article.title }}</a>
-                        </h4>
-                        <small class="text-muted mb-1">
-                            by {{ article.author }} |
-                            {{ article.published_date|date:"D, d M, Y" }}
-                            at {{ article.published_date|date:"H:i" }}
-                        </small>
+            {% if article.published %}
+                <div class="row mb-3 obj-visible">
+            {% else %}
+                <div class="row mb-3 obj-invisible">
+            {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <strong>
+                                <a id="obj-title" href="{% url "articles:detail" slug=article.slug %}">{{ article.title }}</a>
+                            </strong>
+                            <small class="card-text text-muted text-justify">
+                                {% if article.published_date %}
+                                    {{ article.published_date|date:"D, d M, Y" }}
+                                    at {{ article.published_date|date:"H:i" }}
+                                {% else %}
+                                    <spam style="color: red">Draft<br></spam>
+                                {% endif %}
+                            </small>
+                        </h5>
+                        <hr>
+                        <p class="card-text">{{ article.description }}</p>
                     </div>
-                {% else %}
-                    <div class="card-header" style="background-color: rgba(255,0,0,.2);">
-                        <h4 class="mb-0">
-                            <a href="{% url "articles:detail" slug=article.slug %}">{{ article.title }}</a>
-                        </h4>
-                        <small class="text-muted mb-1">
-                            by {{ article.author }} | <spam style="color: red"> Draft</spam>
-                        </small>
-                    </div>
-                {% endif %}
-                <div class="card-body">
-                    <p class="card-text">{{ article.get_html|truncatechars_html:120 }}</p>
                 </div>
-            </div>
         {% endfor %}
+    {% else %}
+        <h3 class="text-center">
+            <br>
+            No articles yet.
+            <br>
+            Please come back later.
+        </h3>
+    {% endif %}
     </div>
 {% endblock %}

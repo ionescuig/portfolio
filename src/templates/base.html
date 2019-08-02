@@ -55,8 +55,9 @@
 </head>
 
 <body>
-
-    {% include 'snippets/nav.html' %}
+    {% block navbar %}
+        {% include 'snippets/nav.html' %}
+    {% endblock %}
 
     <div class="container-fluid h-100">
         {% block content %}{% endblock %}

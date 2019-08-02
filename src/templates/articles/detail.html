@@ -19,17 +19,18 @@
             {% if not article.published %}
                 <spam style="color: red">Draft<br></spam>
             {% endif %}
-            {% if article.published_date %}
-                Published: {{ article.published_date|date:"d/m/Y" }} at {{ article.published_date|date:"H:i" }}
-            {% else %}
-                Not published
-            {% endif %}
 
-            <br> Updated: {{ article.updated_date|date:"d/m/Y" }} at {{ article.updated_date|date:"H:i" }}
-            <br> Created: {{ article.created_date|date:"d/m/Y" }} at {{ article.created_date|date:"H:i" }}
+            Created: {{ article.created_date|date:"d/m/Y" }} at {{ article.created_date|date:"H:i" }}
+            {% if article.published_date %}
+                <br> Published: {{ article.published_date|date:"d/m/Y" }} at {{ article.published_date|date:"H:i" }}
+            {% else %}
+                <br> Not published
+            {% endif %}
+            {% if article.updated_date.date != article.created_date.date %}
+                <br> Updated: {{ article.updated_date|date:"d/m/Y" }} at {{ article.updated_date|date:"H:i" }}
+            {% endif %}
         {% else %}
             <spam>
-                by {{ object.author }} |
                 {{ article.published_date|date:"d/m/Y" }} at {{ article.published_date|date:"H:i" }}
             </spam>
         {% endif %}
@@ -37,6 +38,8 @@
     <hr>
 
     <div>
+        <p>{{ object.description }}</p>
+        <br>
         <p>{{ object.get_html }}</p>
     </div>
     {% if user.is_authenticated and object.author == user %}

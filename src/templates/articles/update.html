@@ -10,22 +10,20 @@
 {% endblock %}
 
 {% block list_content %}
-    <div class="row">
-        <div class="col-lg-6 offset-lg-3">
-            <form method="POST">
-                {% csrf_token %}
-                {{ form.title|as_crispy_field }}
-                {{ form.content.label }}{{ form.content }}
-                <p>
-                    Published date:
-                    {% if object.published_date %}
-                        {{ object.published_date }}
-                    {% else %}
-                        <spam style="color: red">Draft</spam>
-                    {% endif %}
-                </p>
-                <input type="submit" class="btn btn-success" value="Update">
-            </form>
-        </div>
-    </div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.title|as_crispy_field }}
+        {{ form.description|as_crispy_field }}
+        {{ form.content.label }}{{ form.content }}
+        <p>
+            Published date:
+            {% if object.published_date %}
+                {{ object.published_date }}
+            {% else %}
+                <spam style="color: red">Draft</spam>
+            {% endif %}
+        </p>
+        <input type="submit" class="btn btn-success" value="Update">
+        <a class="btn btn-danger float-right" href="{% url "articles:detail" slug=article.slug %}">Cancel</a>
+    </form>
 {% endblock %}

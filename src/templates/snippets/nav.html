@@ -10,6 +10,9 @@
                 <a class="nav-link" href="{% url 'projects:project_list' %}">Projects</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{% url 'articles:all' %}">Blog</a>
+            </li>
+            <li class="nav-item">
                 {% if user.is_authenticated %}
                     <a class="nav-link" href="{% url 'projects:cv_list' %}">CV List</a>
                 {% else %}
@@ -24,26 +27,25 @@
                     <i class="nav-link fas fa-tools"></i>
                 </span>
                 <li class="nav-item nav-custom">
-                    <a class="nav-link" href="{% url 'projects:project_create' %}">Add Project</a>
+                    <a class="nav-link" href="{% url 'articles:list' %}">My articles</a>
                 </li>
-                <li class="nav-item nav-custom">
-                    <a class="nav-link" href="{% url 'projects:cv_create' %}">Add CV</a>
+                <li class="nav-item dropdown nav-custom">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-plus"></i>
+                        New
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'projects:project_create' %}">New Project</a>
+                        <a class="dropdown-item" href="{% url 'articles:create' %}">New article</a>
+                        <a class="dropdown-item" href="{% url 'projects:cv_create' %}">New CV</a>
+                    </div>
                 </li>
                 <li class="nav-item nav-custom">
                     <a class="nav-link" href="/admin" target="_blank">
                         Admin Page
                         <i class="fas fa-external-link-square-alt"></i>
                     </a>
-                </li>
-                |
-                <li class="nav-item nav-custom">
-                    <a class="nav-link" href="{% url 'articles:all' %}">All articles</a>
-                </li>
-                <li class="nav-item nav-custom">
-                    <a class="nav-link" href="{% url 'articles:list' %}">My articles</a>
-                </li>
-                <li class="nav-item nav-custom">
-                    <a class="nav-link" href="{% url 'articles:create' %}">New article</a>
                 </li>
             {% endif %}
 
