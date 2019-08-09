@@ -31,7 +31,8 @@
             {% endif %}
         {% else %}
             <spam>
-                {{ article.published_date|date:"d/m/Y" }} at {{ article.published_date|date:"H:i" }}
+                {{ article.published_date|date:"d/m/Y" }}
+{#                at {{ article.published_date|date:"H:i" }}#}
             </spam>
         {% endif %}
     </h6>

@@ -32,7 +32,9 @@
                             <small class="card-text text-muted text-justify">
                                 {% if article.published_date %}
                                     {{ article.published_date|date:"D, d M, Y" }}
-                                    at {{ article.published_date|date:"H:i" }}
+                                    {% if user.is_staff %}
+                                        at {{ article.published_date|date:"H:i" }}
+                                    {% endif %}
                                 {% else %}
                                     <spam style="color: red">Draft<br></spam>
                                 {% endif %}
