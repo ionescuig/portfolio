@@ -17,6 +17,15 @@
 
 {% block list_content %}
     <div>
+        <div class="text-center">
+            <p>
+                As django developers we have to repeat some tasks quite often and it takes same time until they stick to our mind.
+                <br>And even then we might need to review this steps.
+                <br>
+                As my experience with django will grow so will this list.
+            </p>
+        </div>
+
     {% if object_list %}
         {% for article in object_list %}
             {% if article.published %}
@@ -53,5 +62,14 @@
             Please come back later.
         </h3>
     {% endif %}
+    <div class="text-center">
+        <small class="text-muted">
+            What to expect next (as my time allows): more info in articles; comments; subscribe to: article update, new article.
+            <br>If you have any advice, suggestion or review, please send me an email at ionescuig@yahoo.com.
+            <a href="mailto: ionescuig@yahoo.com">
+                <i class="fas fa-envelope-square fa"></i>
+            </a>
+        </small>
+    </div>
     </div>
 {% endblock %}
