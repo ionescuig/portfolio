@@ -18,7 +18,7 @@
 {% block list_content %}
     <div>
         <div class="text-center">
-            <p>
+            <p id="list-title-description">
                 As django developers we have to repeat some tasks quite often and it takes same time until they stick to our mind.
                 <br>And even then we might need to review this steps.
                 <br>
@@ -38,18 +38,17 @@
                             <strong>
                                 <a id="obj-title" href="{% url "articles:detail" slug=article.slug %}">{{ article.title }}</a>
                             </strong>
-                            <small class="card-text text-muted text-justify">
-                                {% if article.published_date %}
-                                    {{ article.published_date|date:"D, d M, Y" }}
-                                    {% if user.is_staff %}
-                                        at {{ article.published_date|date:"H:i" }}
-                                    {% endif %}
-                                {% else %}
-                                    <spam style="color: red">Draft<br></spam>
-                                {% endif %}
-                            </small>
                         </h5>
-                        <hr>
+                        <p class="card-text text-muted text-justify" id="obj-date">
+                            {% if article.published_date %}
+                                {{ article.published_date|date:"D, d M, Y" }}
+                                {% if user.is_staff %}
+                                    at {{ article.published_date|date:"H:i" }}
+                                {% endif %}
+                            {% else %}
+                                <spam style="color: red">Draft<br></spam>
+                            {% endif %}
+                        </p>
                         <p class="card-text">{{ article.description }}</p>
                     </div>
                 </div>
@@ -62,14 +61,15 @@
             Please come back later.
         </h3>
     {% endif %}
-    <div class="text-center">
-        <small class="text-muted">
-            What to expect next (as my time allows): more info in articles; comments; subscribe to: article update, new article.
-            <br>If you have any advice, suggestion or review, please send me an email at ionescuig@yahoo.com.
-            <a href="mailto: ionescuig@yahoo.com">
-                <i class="fas fa-envelope-square fa"></i>
-            </a>
-        </small>
-    </div>
+        <div class="text-center">
+            <p id="list-footer">
+                What to expect next (as my time allows):
+                <br>more info in articles; comments; subscribe to: article update, new article.
+                <br>If you have any advice, suggestion or review, please send me an email at ionescuig@yahoo.com.
+                <a href="mailto: ionescuig@yahoo.com">
+                    <i class="fas fa-envelope-square fa"></i>
+                </a>
+            </p>
+        </div>
     </div>
 {% endblock %}

@@ -14,23 +14,23 @@
                 <div class="row mb-3 obj-invisible">
             {% endif %}
 
-                    <div class="col-lg-6 align-self-center">
+                    <div class="col-md-5 align-self-center">
                         <img style="border-radius: 5px"
                              width="100%"
                              src="{{ obj.images_set.first.image.url }}"
                              alt="{{ obj.images_set.first.image.url }}">
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="col-md-7">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <strong>
-                                    <a id="obj-title" href="{{ obj.link_host }}" target="_blank">{{ obj.title }}</a>
+                                    <a id="obj-title" href="{{ obj.get_absolute_url }}" target="_blank">{{ obj.title }}</a>
                                 </strong>
                             </h5>
-                            <p class="card-text text-muted text-justify">{{ obj.get_description|first }}</p>
-                            <hr>
-                            <a href="{{ obj.get_absolute_url }}" class="btn-more"><strong>More details</strong></a>
+                            <p class="card-text text-justify">{{ obj.get_description|first }}</p>
+{#                            <hr>#}
+{#                            <a href="{{ obj.get_absolute_url }}" class="btn-more"><strong>More details</strong></a>#}
                         </div>
                     </div>
                 </div>
