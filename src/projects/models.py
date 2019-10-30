@@ -79,40 +79,40 @@ class CV(models.Model):
 
 
 def auto_delete_file_on_delete(sender, instance, **kwargs):
-    """
-    Deletes file from Amazon S3 Bucket when corresponding 'Images'/'CV' object is deleted.
-    """
-    try:
-        instance.image.delete(save=False)
-    except:
-        pass
-
-    try:
-        instance.document.delete(save=False)
-    except:
-        pass
-
     # """
-    # Deletes file from filesystem when corresponding 'Images'/'CV' object is deleted.
+    # Deletes file from Amazon S3 Bucket when corresponding 'Images'/'CV' object is deleted.
     # """
     # try:
-    #     filename = instance.image.path
+    #     instance.image.delete(save=False)
     # except:
     #     pass
     #
     # try:
-    #     filename = instance.document.path
+    #     instance.document.delete(save=False)
     # except:
     #     pass
-    #
-    # path, file = os.path.split(filename)
-    # # delete file
-    # if os.path.isfile(filename):
-    #     os.remove(filename)
-    # # delete folder only if empty
-    # if path:
-    #     if not os.listdir(path):
-    #         os.rmdir(path)
+
+    """
+    Deletes file from filesystem when corresponding 'Images'/'CV' object is deleted.
+    """
+    try:
+        filename = instance.image.path
+    except:
+        pass
+
+    try:
+        filename = instance.document.path
+    except:
+        pass
+
+    path, file = os.path.split(filename)
+    # delete file
+    if os.path.isfile(filename):
+        os.remove(filename)
+    # delete folder only if empty
+    if path:
+        if not os.listdir(path):
+            os.rmdir(path)
 
 
 def auto_delete_images_on_project_delete(sender, instance, **kwargs):

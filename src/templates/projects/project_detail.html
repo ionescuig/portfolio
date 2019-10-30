@@ -12,9 +12,36 @@
             <div class="m-3">
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <div class="row mb-4">
+                        <div class="col-md-8 offset-md-2">
+                            <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    {% for imag in object.images_set.all %}
+                                        <li data-target="#carouselIndicators" data-slide-to={{ forloop.counter }} class="{% if forloop.first %}active{% endif %}"></li>
+                                    {% endfor %}
+                                </ol>
+                                <div class="carousel-inner">
+                                    {% for imag in object.images_set.all %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <img class="d-block w-100" style="border-radius: 5px"
+                                                 src="{{ imag.image.url }}" alt="{{ imag.image.url }}">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
-                        <div class="col-md-7 text-justify">
+                        <div class="col-md-8 text-justify">
                             {% for line in object.get_description %}
                                 {% if line == '' %}
                                     <br>
@@ -23,17 +50,11 @@
                                     <li>{{ line }}</li>
                                 </ul>
                             {% endfor %}
-                            <hr>
-                            {% for tech in object.get_technologies %}
-                                <div style="display: inline-block">
-                                    <img src="https://img.shields.io/badge/{{ tech }}-brightgreen.svg" alt="">
-                                </div>
-                            {% endfor %}
-
-                            <br><br>
-                            {% if object.link_host or object.link_github %}
-                                Links:
-                            {% endif %}
+                        </div>
+                        <div class="col-md-4 text-justify">
+                             {% if object.link_host or object.link_github %}
+                                 Links:
+                             {% endif %}
 
                             <a class="btn btn-link" href="{{ object.link_host }}" target="_blank">
                                 {% if 'heroku' in object.link_host %}
@@ -43,17 +64,11 @@
                                 {% endif %}
                             </a>
                             <a class="btn btn-link" href="{{ object.link_github }}" target="_blank">GitHub</a>
-                        </div>
-
-                        <div class="col-md-5 text-justify">
-                            {% for imag in object.images_set.all %}
-                                <a href="{{ imag.image.url }}" target="_blank">
-                                    <img class="mb-1"
-                                         width='49%'
-                                         style="border-radius: 5px"
-                                         src="{{ imag.image.url }}"
-                                         alt="{{ imag.image.url }}">
-                                </a>
+                            <br><br>
+                            {% for tech in object.get_technologies %}
+                                <div style="display: inline-block">
+                                    <img src="https://img.shields.io/badge/{{ tech }}-brightgreen.svg" alt="">
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -61,6 +76,7 @@
             </div>
         </div>
     </div>
+
 
         {% if user.is_authenticated %}
             <a class="btn btn-success" href="{% url 'projects:project_update' object.slug %}">
