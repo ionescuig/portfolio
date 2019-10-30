@@ -15,10 +15,12 @@
             {% endif %}
 
                     <div class="col-md-5 align-self-center">
-                        <img style="border-radius: 5px"
-                             width="100%"
-                             src="{{ obj.images_set.first.image.url }}"
-                             alt="{{ obj.images_set.first.image.url }}">
+                        <a id="obj-title" href="{{ obj.get_absolute_url }}">
+                            <img style="border-radius: 5px"
+                                 width="100%"
+                                 src="{{ obj.images_set.first.image.url }}"
+                                 alt="{{ obj.images_set.first.image.url }}">
+                        </a>
                     </div>
 
                     <div class="col-md-7">

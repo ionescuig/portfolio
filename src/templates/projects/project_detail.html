@@ -13,7 +13,7 @@
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-md-6 text-justify">
+                        <div class="col-md-6 text-justify mb-2">
                             {% for line in object.get_description %}
                                 {% if line == '' %}
                                     <br>
