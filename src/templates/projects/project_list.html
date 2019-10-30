@@ -25,12 +25,10 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 <strong>
-                                    <a id="obj-title" href="{{ obj.get_absolute_url }}" target="_blank">{{ obj.title }}</a>
+                                    <a id="obj-title" href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
                                 </strong>
                             </h5>
                             <p class="card-text text-justify">{{ obj.get_description|first }}</p>
-{#                            <hr>#}
-{#                            <a href="{{ obj.get_absolute_url }}" class="btn-more"><strong>More details</strong></a>#}
                         </div>
                     </div>
                 </div>
