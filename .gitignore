@@ -4,6 +4,7 @@ local.*
 
 db.sqlite3
 
+env/
 uenv/
 venv/
 wenv/
