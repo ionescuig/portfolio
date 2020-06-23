@@ -46,7 +46,10 @@
                             <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
                                     {% for imag in object.images_set.all %}
-                                        <li data-target="#carouselIndicators" data-slide-to={{ forloop.counter }} class="{% if forloop.first %}active{% endif %}"></li>
+                                        <li data-target="#carouselIndicators"
+                                            data-slide-to={{ forloop.counter }}
+                                                    class="{% if forloop.first %}active{% endif %}"
+                                            style="box-shadow: 0 0 3px rgba(200, 200, 200, 0.7)"></li>
                                     {% endfor %}
                                 </ol>
                                 <div class="carousel-inner">
@@ -58,11 +61,15 @@
                                     {% endfor %}
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span aria-hidden="true">
+                                        <i class="fas fa-angle-left" style="color: #fff; text-shadow: 0 0 5px #888 ; font-size: 2em;"></i>
+                                    </span>
                                     <span class="sr-only">Previous</span>
                                 </a>
                                 <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span aria-hidden="true">
+                                        <i class="fas fa-angle-right" style="color: #fff; text-shadow: 0 0 5px #888; font-size: 2em;"></i>
+                                    </span>
                                     <span class="sr-only">Next</span>
                                 </a>
                             </div>
