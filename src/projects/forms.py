@@ -6,7 +6,7 @@ from .models import Project, Images, CV
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['title', 'description', 'technologies', 'position', 'link_host', 'link_github', 'visible']
+        fields = ['title', 'description', 'description_more', 'technologies', 'position', 'link_host', 'link_github', 'visible']
         error_messages = {
             'title': {
                 'unique': 'Title already exists!'

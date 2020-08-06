@@ -22,6 +22,10 @@
                                     <li>{{ line }}</li>
                                 </ul>
                             {% endfor %}
+                            {% if object.description_more %}
+                                <br>
+                                {{ object.description_more|linebreaks }}
+                            {% endif %}
                             <hr>
                             {% for tech in object.get_technologies %}
                                 <div style="display: inline-block">
