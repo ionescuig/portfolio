@@ -1,6 +1,6 @@
 #main-first {
     color: #d6ffad;
-    text-shadow: 0 0 1.4vw #041820;
+    text-shadow: 0 0 25px #041820;
     font-family: 'Overpass', sans-serif;
     font-size: 7vmax;
 }
@@ -26,4 +26,16 @@
     color: #757f59;
     text-shadow: 0 0 1vw #041820;
     text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+    #main-first {
+        text-shadow: 0 0 15px #041820;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    #main-first {
+        text-shadow: 0 0 20px #041820;
+    }
 }
