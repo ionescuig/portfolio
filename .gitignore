@@ -16,6 +16,8 @@ media/projects/
 staticfiles/
 __pycache__/
 .idea/
+.vscode
+
 
 *.pyc
 *.key
