@@ -38,9 +38,6 @@ class Project(models.Model):
         self.position += value
         self.save()
 
-    def get_description(self):
-        return self.description.splitlines()
-
     def get_technologies(self):
         return self.technologies.split(",")
 

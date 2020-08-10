@@ -15,22 +15,66 @@
             {% endif %}
 
                     <div class="col-md-5 align-self-center">
-                        <a id="obj-title" href="{{ obj.get_absolute_url }}">
-                            <img style="border-radius: 5px"
-                                 width="100%"
-                                 src="{{ obj.images_set.first.image.url }}"
-                                 alt="{{ obj.images_set.first.image.url }}">
-                        </a>
+                        <div id="carouselIndicators{{ obj }}" class="carousel slide" data-ride="carousel" data-interval="false">
+                            <ol class="carousel-indicators">
+                                {% for imag in obj.images_set.all %}
+                                    <li data-target="#carouselIndicators{{ obj }}"
+                                        data-slide-to={{ forloop.counter }}
+                                                class="{% if forloop.first %}active{% endif %}"
+                                        style="box-shadow: 0 0 3px rgba(200, 200, 200, 0.7)"></li>
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner">
+                                {% for imag in obj.images_set.all %}
+                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                        <img class="d-block w-100" style="border-radius: 5px"
+                                                src="{{ imag.image.url }}" alt="{{ imag.image.url }}">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselIndicators{{ obj }}" role="button" data-slide="prev">
+                                <span aria-hidden="true">
+                                    <i class="fas fa-angle-left" style="color: #fff; text-shadow: 0 0 5px #888 ; font-size: 2em;"></i>
+                                </span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselIndicators{{ obj }}" role="button" data-slide="next">
+                                <span aria-hidden="true">
+                                    <i class="fas fa-angle-right" style="color: #fff; text-shadow: 0 0 5px #888; font-size: 2em;"></i>
+                                </span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="col-md-7">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <strong>
-                                    <a id="obj-title" href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
+                                    <a id="obj-title" href="{{ obj.link_host }}" target="_blank">{{ obj.title }}</a>
                                 </strong>
+                                <p class="obj-technologies">
+                                {% for tech in obj.get_technologies %}
+                                    {% if tech == obj.get_technologies|last %}
+                                        {{ tech }}
+                                    {% else %}
+                                        {{ tech }},
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
                             </h5>
-                            <p class="card-text text-justify">{{ obj.get_description|first }}</p>
+                            <p class="card-text text-justify">{{ obj.description|linebreaks }}</p>
+                            {% if obj.description_more %}
+                                <a href="{{ obj.get_absolute_url }}">More...</a>
+                            {% endif %}
+                            {% if obj.link_github %}
+                                <br>
+                                <a href="{{ obj.link_github }}" target="_blank">View Code</a>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                                <br>
+                                <a href="{{ obj.get_absolute_url }}">Details</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

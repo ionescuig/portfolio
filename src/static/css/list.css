@@ -25,6 +25,12 @@
     text-decoration: none;
 }
 
+.obj-technologies {
+    color:#555555;
+    font-size: 0.7em;
+    font-style: italic;
+}
+
 #obj-date {
     margin-top: -0.7rem;
     font-size: 0.6rem;

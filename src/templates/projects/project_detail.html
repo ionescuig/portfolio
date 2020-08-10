@@ -14,37 +14,31 @@
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6 text-justify mb-2">
-                            {% for line in object.get_description %}
-                                {% if line == '' %}
-                                    <br>
-                                {% endif %}
-                                <ul class="list-group list-unstyled">
-                                    <li>{{ line }}</li>
-                                </ul>
-                            {% endfor %}
+                            {{ object.description|linebreaks }}
                             {% if object.description_more %}
                                 <br>
                                 {{ object.description_more|linebreaks }}
                             {% endif %}
                             <hr>
-                            {% for tech in object.get_technologies %}
-                                <div style="display: inline-block">
-                                    <img src="https://img.shields.io/badge/{{ tech }}-brightgreen.svg" alt="">
-                                </div>
-                            {% endfor %}
-                            <br><br>
+                            <p class="text-muted">
+                                {% for tech in object.get_technologies %}
+                                    {% if tech == object.get_technologies|last %}
+                                        {{ tech }}
+                                    {% else %}
+                                        {{ tech }},
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
                             {% if object.link_host or object.link_github %}
-                                 Links:
-                             {% endif %}
+                                Links:
+                            {% endif %}
 
                             <a class="ml-2" href="{{ object.link_host }}" target="_blank">
-                                {% if 'heroku' in object.link_host %}
-                                    Heroku
-                                {% else %}
-                                    {{ object.title }}
-                                {% endif %}
+                                Live Project
                             </a>
-                            <a class="ml-2" href="{{ object.link_github }}" target="_blank">GitHub</a>
+                            {% if object.link_github %}
+                                <a class="ml-2" href="{{ object.link_github }}" target="_blank">View Code</a>
+                            {% endif %}
                         </div>
                         <div class="col-md-6 text-right">
                             <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
