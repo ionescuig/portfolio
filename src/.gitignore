@@ -4,14 +4,14 @@ local.*
 
 db.sqlite3
 
-uenv/
+env/
 venv/
-wenv/
 
 media/
 media/cv/
 media/projects/
 
+staticfiles/
 __pycache__/
 .idea/
 .vscode

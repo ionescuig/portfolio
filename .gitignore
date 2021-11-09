@@ -5,9 +5,7 @@ local.*
 db.sqlite3
 
 env/
-uenv/
 venv/
-wenv/
 
 media/
 media/cv/
@@ -18,8 +16,8 @@ __pycache__/
 .idea/
 .vscode
 
-
 *.pyc
 *.key
+*.py[cod]
 
 *bkp.*
